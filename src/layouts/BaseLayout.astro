@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Dialogues" } = Astro.props;
+---
+
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <h1><a href={import.meta.env.BASE_URL} style="text-decoration: none; color: inherit;">Dialogues</a></h1>
+      <p>AI 에이전트와 조직 지능, 기술과 인간의 대화 기록</p>
+      <nav>
+        <a href={import.meta.env.BASE_URL}>글 목록</a>
+        <a href="https://github.com/hitel00000" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </aside>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

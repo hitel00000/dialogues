@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const conversations = await getCollection('conversations');
+  const essays = await getCollection('essays');
+
+  const all = [
+    ...conversations.map((post) => ({ ...post, collection: 'conversations' })),
+    ...essays.map((post) => ({ ...post, collection: 'essays' })),
+  ];
+
+  return all.map((post) => ({
+    params: {
+      collection: post.collection,
+      slug: post.id,
+    },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+};
+---
+
+<BaseLayout title={`${post.data.title} - Dialogues`}>
+  <nav class="back-nav">
+    <a href={import.meta.env.BASE_URL}>← 목록으로 돌아가기</a>
+  </nav>
+
+  <article>
+    <h1>{post.data.title}</h1>
+    <div style="opacity: 0.6; font-size: 0.95rem; margin-bottom: 32px;">
+      작성일: {formatDate(post.data.date)}
+    </div>
+
+    <Content />
+  </article>
+</BaseLayout>
