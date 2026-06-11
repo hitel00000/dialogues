@@ -1,43 +1,36 @@
-# Astro Starter Kit: Minimal
+# Dialogues
+
+AI 에이전트와 조직 지능, 기술과 인간의 대화 기록을 담는 블로그/아카이브 사이트입니다.
+
+## 🚀 프로젝트 개요
+
+- **프레임워크**: [Astro](https://astro.build/)
+- **디자인**: 개인 이력서 테마 디자인 연동 (2단 사이드바 레이아웃, 반응형 디자인)
+- **콘텐츠 관리**: Astro Content Collections를 통한 Markdown 관리
+- **배포**: GitHub Actions를 활용한 GitHub Pages 배포 (`/dialogues`)
+
+## 🛠️ 주요 명령어
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install      # 의존성 설치
+npm run dev      # 로컬 개발 서버 시작 (localhost:4321)
+npm run build    # 정적 사이트 빌드 (./dist/)
+npm run preview  # 빌드 결과 로컬 미리보기
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 📝 글 작성하기
 
-## 🚀 Project Structure
+새로운 글은 아래 디렉토리에 마크다운(`.md`) 파일로 추가합니다.
 
-Inside of your Astro project, you'll see the following folders and files:
+- **대화 (Conversations)**: `src/content/conversations/`
+- **에세이 (Essays)**: `src/content/essays/`
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+각 파일의 상단에는 아래 예시와 같이 Frontmatter를 포함해야 합니다.
+
+```yaml
+---
+title: "글 제목"
+description: "글에 대한 짧은 요약 (선택)"
+date: 2026-06-11
+---
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
