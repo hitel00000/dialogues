@@ -59,6 +59,13 @@ body {
   opacity: 1;
 }
 
+.sidebar hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+  width: 100%;
+}
+
 main {
   flex: 1;
   max-width: var(--max-width);
@@ -273,6 +280,10 @@ nav.back-nav a:hover {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 16px;
+  }
+
+  .sidebar hr {
+    display: none;
   }
 
   main {
