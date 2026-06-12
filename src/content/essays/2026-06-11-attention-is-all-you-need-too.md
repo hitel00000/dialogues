@@ -1,5 +1,6 @@
 ---
 title: Attention Is All You Need, Too
+description: "LLM과 인간 모두에게 진짜 필요한 것은 단순한 지능의 크기가 아니라, 무엇에 주목하고 생각해야 할지를 선택하는 '주의(Attention)' 통제력이라는 성찰."
 date: 2026-06-11
 ---
 
