@@ -26,7 +26,7 @@ const formatDate = (date: Date) => {
   {post.data.description && <p class="summary">{post.data.description}</p>}
   
   {post.data.tags && post.data.tags.length > 0 && (
-    <div class="focus-tags" style="margin-top: 12px;">
+    <div class="focus-tags">
       {post.data.tags.map((tag: string) => (
         <span>#{tag}</span>
       ))}
