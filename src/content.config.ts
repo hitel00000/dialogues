@@ -7,6 +7,7 @@ const conversations = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     date: z.date(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
@@ -16,6 +17,7 @@ const essays = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     date: z.date(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
