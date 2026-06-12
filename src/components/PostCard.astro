@@ -28,7 +28,9 @@ const formatDate = (date: Date) => {
   {post.data.tags && post.data.tags.length > 0 && (
     <div class="focus-tags">
       {post.data.tags.map((tag: string) => (
-        <span>#{tag}</span>
+        <a href={`${base}tags/${tag}`} style="text-decoration: none;">
+          <span>#{tag}</span>
+        </a>
       ))}
     </div>
   )}
