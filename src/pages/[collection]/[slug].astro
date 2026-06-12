@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { COLLECTIONS } from '../../config';
+import { COLLECTIONS, BASE_URL } from '../../config';
 
 export async function getStaticPaths() {
   const allPaths = await Promise.all(
@@ -23,8 +23,6 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-
 const formatDate = (date: Date) => {
   return date.toLocaleDateString('ko-KR', {
     year: 'numeric',
@@ -36,7 +34,7 @@ const formatDate = (date: Date) => {
 
 <BaseLayout title={`${post.data.title} - Dialogues`}>
   <nav class="back-nav">
-    <a href={import.meta.env.BASE_URL}>← 목록으로 돌아가기</a>
+    <a href={BASE_URL}>← 목록으로 돌아가기</a>
   </nav>
 
   <article>
@@ -52,7 +50,7 @@ const formatDate = (date: Date) => {
         <div style="opacity: 0.6; font-size: 0.95rem; margin-bottom: 12px;">태그</div>
         <div class="focus-tags" style="margin-top: 0;">
           {post.data.tags.map((tag: string) => (
-            <a href={`${base}tags/${tag}`} style="text-decoration: none;">
+            <a href={`${BASE_URL}tags/${tag}`} style="text-decoration: none;">
               <span>#{tag}</span>
             </a>
           ))}

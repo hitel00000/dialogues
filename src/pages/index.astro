@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import { COLLECTIONS } from '../config';
+import { COLLECTIONS, BASE_URL } from '../config';
 
 // 1. Fetch all posts from all collections
 const allPosts = [];
@@ -15,8 +15,6 @@ for (const col of COLLECTIONS) {
 const recentPosts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 5);
-
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
 <BaseLayout title="Dialogues - 생각과 대화 기록">
@@ -24,7 +22,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
     <h2>최근 업데이트</h2>
     <div class="posts-list">
       {recentPosts.map((post) => (
-        <PostCard post={post} collectionId={post.collectionId} base={base} />
+        <PostCard post={post} collectionId={post.collectionId} />
       ))}
     </div>
   </section>
@@ -35,7 +33,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
       <div class="card">
         <div class="item-heading">
           <h3>
-            <a href={`${base}conversations`}>대화 ➔</a>
+            <a href={`${BASE_URL}conversations`}>대화 ➔</a>
           </h3>
         </div>
         <p class="summary" style="margin-bottom: 0; font-size: 0.95rem;">
@@ -45,7 +43,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
       <div class="card">
         <div class="item-heading">
           <h3>
-            <a href={`${base}essays`}>에세이 ➔</a>
+            <a href={`${BASE_URL}essays`}>에세이 ➔</a>
           </h3>
         </div>
         <p class="summary" style="margin-bottom: 0; font-size: 0.95rem;">

@@ -1,13 +1,12 @@
 ---
 import '../styles/global.css';
-import { COLLECTIONS } from '../config';
+import { COLLECTIONS, BASE_URL } from '../config';
 
 interface Props {
   title?: string;
 }
 
 const { title = "Dialogues" } = Astro.props;
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
 <html lang="ko">
@@ -19,11 +18,11 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
   <body>
     <aside class="sidebar">
-      <h1><a href={import.meta.env.BASE_URL} style="text-decoration: none; color: inherit;">Dialogues</a></h1>
+      <h1><a href={BASE_URL} style="text-decoration: none; color: inherit;">Dialogues</a></h1>
       <p>관심 있는 다양한 주제의 대화와 생각을 기록하는 보관소</p>
       <nav>
         {COLLECTIONS.map(col => (
-          <a href={`${base}${col.id}`}>{col.label}</a>
+          <a href={`${BASE_URL}${col.id}`}>{col.label}</a>
         ))}
         <hr />
         <a href="https://github.com/hitel00000" target="_blank" rel="noopener noreferrer" style="opacity: 0.55;">GitHub ↗</a>

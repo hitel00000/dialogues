@@ -1,11 +1,12 @@
 ---
+import { BASE_URL } from '../config';
+
 interface Props {
   post: any;
   collectionId: string;
-  base: string;
 }
 
-const { post, collectionId, base } = Astro.props;
+const { post, collectionId } = Astro.props;
 
 const formatDate = (date: Date) => {
   return date.toLocaleDateString('ko-KR', {
@@ -19,7 +20,7 @@ const formatDate = (date: Date) => {
 <div class="card">
   <div class="item-heading">
     <h3>
-      <a href={`${base}${collectionId}/${post.id}`}>{post.data.title}</a>
+      <a href={`${BASE_URL}${collectionId}/${post.id}`}>{post.data.title}</a>
     </h3>
     <span class="meta">{formatDate(post.data.date)}</span>
   </div>
@@ -28,7 +29,7 @@ const formatDate = (date: Date) => {
   {post.data.tags && post.data.tags.length > 0 && (
     <div class="focus-tags">
       {post.data.tags.map((tag: string) => (
-        <a href={`${base}tags/${tag}`} style="text-decoration: none;">
+        <a href={`${BASE_URL}tags/${tag}`} style="text-decoration: none;">
           <span>#{tag}</span>
         </a>
       ))}
