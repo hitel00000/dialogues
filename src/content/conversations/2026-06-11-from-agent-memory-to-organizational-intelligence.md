@@ -1,9 +1,12 @@
 ---
-
 title: "From Agent Memory to Organizational Intelligence"
 description: "Reframing multi-agent systems as organizations rather than memory systems."
 date: 2026-06-11
-
+tags:
+  - ai
+  - agents
+  - organization
+  - systems
 ---
 
 최근 AI 에이전트에 대해 생각하다가 흥미로운 방향으로 사고가 전개되었다.

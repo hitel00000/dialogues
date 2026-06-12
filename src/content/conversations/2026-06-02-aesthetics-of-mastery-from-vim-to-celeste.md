@@ -2,6 +2,11 @@
 title: "우아한 조작계와 숙련의 미학: Vim에서 셀레스트까지"
 description: "셀레스트, 세키로, Vim, 요요 등에서 발견되는 '아름다운 조작계를 다듬고 숙련하는 즐거움'에 대한 흥미로운 통찰."
 date: 2026-06-02
+tags:
+  - gaming
+  - interface
+  - learning
+  - tools
 ---
 
 그럼 꽤 후자에 가깝네. 😄

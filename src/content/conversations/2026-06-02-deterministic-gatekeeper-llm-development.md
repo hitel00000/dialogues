@@ -2,6 +2,11 @@
 title: "결정과 실행의 분리: Deterministic Gatekeeper"
 description: "LLM이 코드베이스 상태를 직접 수정하지 못하게 차단하고, Feature Graph 구조 변경만을 허용하여 결정성과 통제력을 확보하는 개발 구조 제안."
 date: 2026-06-02
+tags:
+  - ai
+  - development
+  - architecture
+  - systems
 ---
 
 # Deterministic Gatekeeper for LLM-Driven Development
