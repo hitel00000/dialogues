@@ -138,6 +138,40 @@ section h2 {
   background: rgba(127, 127, 127, 0.14);
 }
 
+.tags-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.tag-chip {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 12px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.tag-chip:hover {
+  opacity: 1;
+  background: rgba(127, 127, 127, 0.05);
+}
+
+.tag-chip.active {
+  opacity: 1;
+  background: rgba(127, 127, 127, 0.12);
+  border-color: rgba(127, 127, 127, 0.5);
+  font-weight: 600;
+}
+
 .item-heading {
   display: flex;
   align-items: flex-start;

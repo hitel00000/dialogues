@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { COLLECTIONS } from '../../config';
+
+export async function getStaticPaths() {
+  return COLLECTIONS.map((col) => ({
+    params: { collection: col.id },
+    props: { col },
+  }));
+}
+
+const { col } = Astro.props;
+const posts = (await getCollection(col.id)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+// Extract unique tags for this category
+const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+
+<BaseLayout title={`${col.label} - Dialogues`}>
+  <section>
+    <h2>{col.label}</h2>
+
+    {uniqueTags.length > 0 && (
+      <div class="tags-filter">
+        <button class="tag-chip active" data-tag="all">전체 (All)</button>
+        {uniqueTags.map((tag) => (
+          <button class="tag-chip" data-tag={tag}>#{tag}</button>
+        ))}
+      </div>
+    )}
+
+    <div class="posts-list" id="posts-container">
+      {posts.map((post) => (
+        <div class="post-card-wrapper" data-tags={post.data.tags?.join(',') || ''}>
+          <PostCard post={post} collectionId={col.id} base={base} />
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Dynamic client-side filtering script
+  const chips = document.querySelectorAll('.tag-chip');
+  const posts = document.querySelectorAll('.post-card-wrapper');
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      // 1. Update active chip
+      chips.forEach((c) => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      const selectedTag = chip.getAttribute('data-tag');
+
+      // 2. Filter posts
+      posts.forEach((post) => {
+        const postTagsStr = post.getAttribute('data-tags') || '';
+        const postTags = postTagsStr.split(',');
+
+        if (selectedTag === 'all' || postTags.includes(selectedTag)) {
+          (post as HTMLElement).style.display = 'block';
+        } else {
+          (post as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
