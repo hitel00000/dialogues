@@ -1,57 +1,31 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { COLLECTIONS } from '../config';
 
-const conversations = (await getCollection('conversations')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
-const essays = (await getCollection('essays')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+const collectionsData = await Promise.all(
+  COLLECTIONS.map(async (col) => {
+    const posts = await getCollection(col.id);
+    return {
+      ...col,
+      posts: posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    };
+  })
 );
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  });
-};
 ---
 
 <BaseLayout title="Dialogues - 생각과 대화 기록">
-  <section>
-    <h2>대화 (Conversations)</h2>
-    <div class="posts-list">
-      {conversations.map((post) => (
-        <div class="card">
-          <div class="item-heading">
-            <h3>
-              <a href={`${base}conversations/${post.id}`}>{post.data.title}</a>
-            </h3>
-            <span class="meta">{formatDate(post.data.date)}</span>
-          </div>
-          {post.data.description && <p class="summary">{post.data.description}</p>}
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section>
-    <h2>에세이 (Essays)</h2>
-    <div class="posts-list">
-      {essays.map((post) => (
-        <div class="card">
-          <div class="item-heading">
-            <h3>
-              <a href={`${base}essays/${post.id}`}>{post.data.title}</a>
-            </h3>
-            <span class="meta">{formatDate(post.data.date)}</span>
-          </div>
-          {post.data.description && <p class="summary">{post.data.description}</p>}
-        </div>
-      ))}
-    </div>
-  </section>
+  {collectionsData.map(({ id, label, posts }) => (
+    <section>
+      <h2>{label}</h2>
+      <div class="posts-list">
+        {posts.map((post) => (
+          <PostCard post={post} collectionId={id} base={base} />
+        ))}
+      </div>
+    </section>
+  ))}
 </BaseLayout>
