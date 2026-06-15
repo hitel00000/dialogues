@@ -7,6 +7,11 @@ on:
     branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
+  # 연쇄 트리거: 이슈 포스팅 워크플로우가 성공적으로 끝나면 실행
+  workflow_run:
+    workflows: ["Publish Post with LLM Frontmatter"]
+    types:
+      - completed
 
 # Allow this job to clone the repo and create a page deployment
 permissions:
@@ -17,6 +22,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
