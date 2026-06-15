@@ -1,6 +1,12 @@
 ---
 title: "The Architecture Behind the Language"
+description: "프로그래밍 언어의 미적 기준 변화와 시대적 제약, 그리고 개별 코드의 우아함에서 시스템 아키텍처라는 거대한 구조물로 관심사가 확장되는 과정에 대한 단상"
 date: 2026-06-14
+tags:
+  - programming
+  - architecture
+  - aesthetics
+  - philosophy
 ---
 
 한때 프로그래밍 언어에는 저마다의 미감이 있었다. 특히 Python이 주류로 부상하던 시기에는 단순히 언어를 배우는 것을 넘어, 그 언어가 추구하는 아름다움에 대한 이야기가 함께 오갔다. The Zen of Python은 스타일 가이드라기보다 하나의 선언문에 가까웠고, "Pythonic"이라는 표현은 문법적 특성을 넘어 사고방식을 의미했다.
