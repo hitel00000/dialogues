@@ -49,23 +49,33 @@ jobs:
             }
             if (!category) return;
 
-            // [방어 2] 본문에서 템플릿 안내문구 및 HTML 주석 제거
-            let bodyText = issue.body || '';
-            bodyText = bodyText
-              .replace(/<!--[\s\S]*?-->/g, '') // HTML 주석 제거
-              .replace(/여기부터\s*(에세이|대화)\s*본문\s*내용을\s*작성해\s*주세요\.?/g, '') // 안내 문구 제거
-              .replace(/사용자님은\s*그냥\s*자유롭게\s*글을\s*써서\s*올리시면\s*됩니다\.?/g, '')
-              .replace(/\(이슈\s*제목의\s*\[(Essay|Conversation)\]\s*접두사와\s*본문의\s*주석\s*설명은\s*발행\s*시\s*자동으로\s*제거됩니다\.\)?/g, '')
-              .trim();
-
-            // 1. 오늘 날짜 포맷팅 (KST는 UTC+9)
+            // 1. 오늘 날짜 포맷팅 (기본값: KST 기준 오늘 날짜)
             const dateObj = new Date(issue.created_at);
             const kstOffset = 9 * 60 * 60 * 1000;
             const kstDate = new Date(dateObj.getTime() + kstOffset);
             const yyyy = kstDate.getUTCFullYear();
             const mm = String(kstDate.getUTCMonth() + 1).padStart(2, '0');
             const dd = String(kstDate.getUTCDate()).padStart(2, '0');
-            const dateStr = `${yyyy}-${mm}-${dd}`;
+            const defaultDateStr = `${yyyy}-${mm}-${dd}`;
+            
+            let dateStr = defaultDateStr;
+
+            // [날짜 임의 지정 처리] 본문에 명시적으로 "date: YYYY-MM-DD"가 적혀있는지 1차 정규식 체크
+            const bodyTextRaw = issue.body || '';
+            const explicitDateMatch = bodyTextRaw.match(/(?:^|\n)date:\s*(\d{4}-\d{2}-\d{2})/i);
+            if (explicitDateMatch) {
+              dateStr = explicitDateMatch[1];
+              console.log(`Explicit date found in body text: ${dateStr}`);
+            }
+
+            // [방어 2] 본문에서 템플릿 안내문구, HTML 주석, 명시적으로 기재된 날짜 라인 제거
+            let bodyText = bodyTextRaw
+              .replace(/<!--[\s\S]*?-->/g, '') // HTML 주석 제거
+              .replace(/(?:^|\n)date:\s*\d{4}-\d{2}-\d{2}/gi, '') // 수동 입력 날짜 라인 제거
+              .replace(/여기부터\s*(에세이|대화)\s*본문\s*내용을\s*작성해\s*주세요\.?/g, '') // 안내 문구 제거
+              .replace(/사용자님은\s*그냥\s*자유롭게\s*글을\s*써서\s*올리시면\s*됩니다\.?/g, '')
+              .replace(/\(이슈\s*제목의\s*\[(Essay|Conversation)\]\s*접두사와\s*본문의\s*주석\s*설명은\s*발행\s*시\s*자동으로\s*제거됩니다\.\)?/g, '')
+              .trim();
 
             // 2. Gemini LLM API 호출하여 Frontmatter 데이터 정제
             const apiKey = process.env.GEMINI_API_KEY;
@@ -79,7 +89,7 @@ jobs:
                 console.log("Calling Gemini API to generate Frontmatter...");
                 
                 const prompt = `
-                아래 블로그 원문과 사용자가 입력한 임시 제목을 분석하여, Astro 정적 블로그에 들어갈 메타데이터(제목, 요약, 태그, 슬러그)를 추출 및 가공해 주세요.
+                아래 블로그 원문과 사용자가 입력한 임시 제목을 분석하여, Astro 정적 블로그에 들어갈 메타데이터(제목, 요약, 태그, 슬러그, 날짜)를 추출 및 가공해 주세요.
                 
                 - 임시 제목: "${title}"
                 - 본문 내용:
@@ -92,13 +102,15 @@ jobs:
                 2. description: 글 전체 내용을 요약한 한두 줄의 요약문
                 3. tags: 글 주제에 어울리는 대표 태그 2~3개 (영어 소문자로 구성)
                 4. slug: title 내용을 바탕으로 연상할 수 있는, URL 경로에 어울리는 영문 소문자 하이픈(-) 형태의 슬러그 (예: "attention-is-all-you-need-too"). 특수문자는 제거해 주세요.
+                5. date: 본문 내용이나 제목 등에서 글이 실제 작성된 과거 날짜 정보(예: "2024년 5월 12일 작성", "2023-08-11에 남긴 메모" 등)가 단서로 제공되었다면 YYYY-MM-DD 포맷으로 추출해 주세요. 언급이 전혀 없다면 빈 문자열("")을 반환해 주세요.
                 
                 다음 JSON 형식을 엄격히 지켜서 한국어로 답변해 주세요. JSON 외에 다른 설명 텍스트나 마크다운 코드 블록(\`\`\`)은 절대로 넣지 마세요:
                 {
                   "title": "생성된 제목",
                   "description": "생성된 요약문",
                   "tags": ["tag1", "tag2"],
-                  "slug": "english-slug-format"
+                  "slug": "english-slug-format",
+                  "date": "YYYY-MM-DD 또는 빈문자열"
                 }
                 `;
 
@@ -130,6 +142,12 @@ jobs:
                   description = aiResult.description || '';
                   tags = aiResult.tags || [];
                   slug = aiResult.slug ? aiResult.slug.toLowerCase().replace(/[^a-z0-9-]+/g, '') : slug;
+                  
+                  // 본문 정규식으로 직접 지정 날짜를 못 찾았고, AI가 본문에서 과거 날짜를 발견했다면 대입
+                  if (!explicitDateMatch && aiResult.date && /^\d{4}-\d{2}-\d{2}$/.test(aiResult.date)) {
+                    dateStr = aiResult.date;
+                    console.log(`LLM extracted date from text: ${dateStr}`);
+                  }
                   
                   console.log("LLM Generation Success:", aiResult);
                 } else {
