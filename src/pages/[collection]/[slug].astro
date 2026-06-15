@@ -37,7 +37,7 @@ const { Content } = await render(post);
         {COLLECTIONS.find(c => c.id === post.collection)?.label || post.collection}
       </span>
       <span>•</span>
-      <span>작성일: {formatDate(post.data.date)}</span>
+      <span>{formatDate(post.data.date)}</span>
     </div>
 
     <Content />
