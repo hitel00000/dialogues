@@ -1,7 +1,12 @@
 ---
 title: "Extending the Mind of Civilization"
-description: ""
+description: "초지능과 집단지능에 대한 성찰을 바탕으로, 지능의 본질인 패턴 인식(압축과 연결)과 AI가 인간이 문명을 이해하고 질문을 던지는 방식을 바꿀 수 있을지에 대한 질문"
 date: 2026-06-15
+tags:
+  - ai
+  - intelligence
+  - philosophy
+  - systems
 ---
 
 최근 AGI와 ASI에 관한 논의를 읽으며 흥미로웠던 점은 초지능 자체보다 집단지능에 대한 이야기였다. 미래의 초지능은 하나의 거대한 개체가 아니라 수많은 AI 에이전트들의 조직일 수 있다는 주장이다.
