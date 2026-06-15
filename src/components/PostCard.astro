@@ -1,5 +1,5 @@
 ---
-import { BASE_URL } from '../config';
+import { BASE_URL, COLLECTIONS } from '../config';
 import { formatDate } from '../utils/date';
 
 interface Props {
@@ -15,7 +15,13 @@ const { post, collectionId } = Astro.props;
     <h3>
       <a href={`${BASE_URL}${collectionId}/${post.id}`}>{post.data.title}</a>
     </h3>
-    <span class="meta">{formatDate(post.data.date)}</span>
+    <div class="meta" style="display: inline-flex; align-items: center; gap: 6px;">
+      <span style="font-weight: 500; padding: 2px 6px; border-radius: 4px; background: rgba(127,127,127,0.15); font-size: 0.72rem; opacity: 0.95;">
+        {COLLECTIONS.find(c => c.id === collectionId)?.label || collectionId}
+      </span>
+      <span>•</span>
+      <span>{formatDate(post.data.date)}</span>
+    </div>
   </div>
   {post.data.description && <p class="summary">{post.data.description}</p>}
   

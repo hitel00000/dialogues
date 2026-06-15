@@ -32,8 +32,12 @@ const { Content } = await render(post);
 
   <article>
     <h1>{post.data.title}</h1>
-    <div style="opacity: 0.6; font-size: 0.95rem; margin-bottom: 32px;">
-      작성일: {formatDate(post.data.date)}
+    <div style="display: flex; align-items: center; gap: 8px; opacity: 0.6; font-size: 0.95rem; margin-bottom: 32px;">
+      <span style="font-weight: 500; padding: 2px 8px; border-radius: 4px; background: rgba(127,127,127,0.15); font-size: 0.8rem; letter-spacing: 0.02em;">
+        {COLLECTIONS.find(c => c.id === post.collection)?.label || post.collection}
+      </span>
+      <span>•</span>
+      <span>작성일: {formatDate(post.data.date)}</span>
     </div>
 
     <Content />
