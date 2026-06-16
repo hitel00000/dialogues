@@ -71,7 +71,7 @@ async function run() {
 
   [요구 사항]
   1. internal: 각 글(ID)마다 가장 의미적으로 강하게 연결되는 이 블로그 내의 다른 연관 글 1개를 선별해 주세요. (자신 제외, essays와 conversations 카테고리를 교차해서 넘나들 수 있습니다.)
-  2. external: 각 글(ID)마다 구글 검색 기능을 이용해, 글의 주제나 비유적 사유를 더 넓은 컨텍스트로 확장하여 읽을 수 있는 인터넷상의 아주 신뢰성 높고 훌륭한 외부 웹 아티클, 칼럼, 백과, 논문 등을 1~2개 찾아주세요.
+  2. external: 각 글(ID)마다, 당신의 사전 학습된 풍부한 지식(Pre-trained Knowledge)을 바탕으로 글의 주제나 비유적 사유를 더 넓은 컨텍스트로 확장하여 읽을 수 있는 인터넷상의 아주 유명하고 공신력 있는 외부 웹 아티클, 위키백과(Wikipedia) 페이지, 스탠포드 철학 백과(Stanford Encyclopedia of Philosophy) 문서, 유명 저널 칼럼 등을 1~2개 매핑해 주세요. 실제 존재하는 정확한 URL 주소를 유추하여 포함시켜 주셔야 합니다.
   3. 각 추천 글마다 왜 연결되는지에 대한 큐레이션 한 줄 평(reason, 한국어 1문장)을 정교하게 작성해 주세요. (external의 경우 왜 외부의 이 글을 추천하는지)
   4. [중요] 기존 큐레이션 맵에 이미 연결된 internal/external 링크와 평이 있고, 연결 대상인 글이 여전히 [글 목록 데이터]에 존재한다면, 무작위 갱신으로 인한 정보 손실을 막기 위해 기존 데이터를 우선적으로 보존하고 유지해 주세요. 신규 글이나 끊어진 글 위주로만 추천을 갱신합니다.
 
@@ -89,16 +89,17 @@ async function run() {
   `;
 
   try {
-    // [버그 수정] 
-    // 2026년 기준, 구글의 이전 세대 모델인 'gemini-1.5-pro' 및 'gemini-1.5-flash' 라인업이 완전히 은퇴(Retired)되어 404가 났습니다.
-    // 현재 v1beta에서 구글 검색 도구를 지원하며 무료 계정 쿼터가 넉넉히 제공되는 2026년 기준 표준 주력 모델인 'gemini-3.5-flash'로 마이그레이션합니다.
-    console.log("Calling Gemini v1beta API (gemini-3.5-flash) with Google Search tool enabled...");
+    // [무료 티어 429 제한 긴급 수정] 
+    // 구글 AI Studio 무료 티어 계정에서는 실시간 구글 검색 도구('tools') 기능을 켤 경우, 쿼터 제한 정책에 걸려 무조건 429(RESOURCE_EXHAUSTED)를 뱉습니다.
+    // 무료 요금제에서 원활히 동작할 수 있도록 'tools' (google_search) 연동 옵션을 과감히 제거합니다.
+    // 대신 모델의 내장 지식(Pre-trained Knowledge)을 활용해 위키피디아, 스탠포드 철학 백과 등 신뢰할 수 있는 인터넷 문서의 URL을 큐레이션하도록 우회합니다.
+    console.log("Calling Gemini v1beta API (gemini-3.5-flash) in standard mode...");
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        tools: [{ google_search: {} }] // 실시간 구글 검색 그라운딩 활성화
+        contents: [{ parts: [{ text: prompt }] }]
+        // tools 제거로 무료 티어 429 Quota 에러 원천 해결
       })
     });
 
