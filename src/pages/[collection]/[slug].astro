@@ -23,6 +23,44 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// 1. 빌드 실패 방지를 위해 curated-links.json 동적 임포트 및 예외 처리
+let curatedLinks = {};
+try {
+  const fs = await import('fs');
+  const path = await import('path');
+  const filePath = path.join(process.cwd(), 'src', 'data', 'curated-links.json');
+  if (fs.existsSync(filePath)) {
+    curatedLinks = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  }
+} catch (e) {
+  console.warn("Could not load curated-links.json. Proceeding without LLM recommendations.", e);
+}
+
+// 2. 현재 포스트의 큐레이션 가져오기
+const currentCuration = curatedLinks[post.id] || { internal: [], external: [] };
+
+// 3. 모든 포스트 목록 긁어오기 (internal 추천 대상 탐색용)
+const allPosts = [];
+for (const col of COLLECTIONS) {
+  const posts = await getCollection(col.id);
+  allPosts.push(...posts.map(p => ({ ...p, collectionId: col.id })));
+}
+
+// 4. 내부 추천 포스트 매핑
+const internalRecommendations = (currentCuration.internal || [])
+  .map((rec) => {
+    const matchedPost = allPosts.find(p => p.id === rec.id);
+    if (!matchedPost) return null;
+    return {
+      ...matchedPost,
+      reason: rec.reason
+    };
+  })
+  .filter(Boolean);
+
+// 5. 외부 추천 포스트 매핑
+const externalRecommendations = currentCuration.external || [];
 ---
 
 <BaseLayout title={`${post.data.title} - Dialogues`}>
@@ -41,6 +79,67 @@ const { Content } = await render(post);
     </div>
 
     <Content />
+
+    {/* LLM 시맨틱 큐레이션 추천 섹션 */}
+    {(internalRecommendations.length > 0 || externalRecommendations.length > 0) && (
+      <div style="margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border);">
+        <h3 style="font-size: 1.25rem; margin-bottom: 24px; font-weight: 700; opacity: 0.9;">
+          사유의 확장: AI가 제안하는 연결고리
+        </h3>
+        
+        {/* 내부 추천 */}
+        {internalRecommendations.length > 0 && (
+          <div style="margin-bottom: 32px;">
+            <div style="font-size: 0.82rem; opacity: 0.6; font-weight: 600; margin-bottom: 12px; letter-spacing: 0.05em; text-transform: uppercase;">
+              이 블로그의 연관 생각
+            </div>
+            {internalRecommendations.map((rec) => (
+              <a href={`${BASE_URL}${rec.collectionId}/${rec.id}`} style="text-decoration: none; display: block; margin-bottom: 16px;">
+                <div class="card" style="margin-bottom: 0; padding: 18px;">
+                  <div style="display: flex; align-items: center; gap: 8px; font-size: 0.75rem; opacity: 0.6; margin-bottom: 6px;">
+                    <span style="font-weight: 500; padding: 1px 6px; border-radius: 4px; background: rgba(127,127,127,0.15);">
+                      {COLLECTIONS.find(c => c.id === rec.collectionId)?.label}
+                    </span>
+                    <span>•</span>
+                    <span>{formatDate(rec.data.date)}</span>
+                  </div>
+                  <h4 style="margin: 0 0 8px; font-size: 1rem; line-height: 1.45; font-weight: 600;">
+                    {rec.data.title}
+                  </h4>
+                  <p style="margin: 0; font-size: 0.88rem; opacity: 0.8; line-height: 1.6; font-style: italic;">
+                    &ldquo;{rec.reason}&rdquo;
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* 외부 추천 */}
+        {externalRecommendations.length > 0 && (
+          <div>
+            <div style="font-size: 0.82rem; opacity: 0.6; font-weight: 600; margin-bottom: 12px; letter-spacing: 0.05em; text-transform: uppercase;">
+              인터넷 지식의 바다로 확장하기
+            </div>
+            {externalRecommendations.map((rec) => (
+              <a href={rec.url} target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block; margin-bottom: 16px;">
+                <div class="card" style="margin-bottom: 0; padding: 18px; border-left: 3px solid rgba(127,127,127,0.35);">
+                  <div style="font-size: 0.72rem; opacity: 0.6; margin-bottom: 6px; font-weight: 500; letter-spacing: 0.02em;">
+                    🌐 EXTERNAL ARTICLE ↗
+                  </div>
+                  <h4 style="margin: 0 0 8px; font-size: 1rem; line-height: 1.45; font-weight: 600;">
+                    {rec.title}
+                  </h4>
+                  <p style="margin: 0; font-size: 0.88rem; opacity: 0.8; line-height: 1.6; font-style: italic;">
+                    &ldquo;{rec.reason}&rdquo;
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    )}
 
     {post.data.tags && post.data.tags.length > 0 && (
       <footer style="margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);">
