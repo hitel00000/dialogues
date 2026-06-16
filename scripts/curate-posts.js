@@ -89,14 +89,15 @@ async function run() {
   `;
 
   try {
-    console.log("Calling Gemini v1beta API with Google Search tool enabled...");
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    // [버그 수정] v1beta에서 gemini-1.5-flash 모델이 검색되지 않아 404를 내는 이슈 대응.
+    // 검증된 stable v1 엔드포인트를 사용하되, 400 오류를 피하기 위해 generation_config는 생략합니다.
+    console.log("Calling Gemini v1 API with Google Search tool enabled...");
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        tools: [{ google_search: {} }], // 실시간 구글 검색 그라운딩 활성화
-        generation_config: { response_mime_type: "application/json" }
+        tools: [{ google_search: {} }] // 실시간 구글 검색 그라운딩 활성화
       })
     });
 
