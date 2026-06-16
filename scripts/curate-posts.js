@@ -89,10 +89,12 @@ async function run() {
   `;
 
   try {
-    // [버그 수정] v1beta에서 gemini-1.5-flash 모델이 검색되지 않아 404를 내는 이슈 대응.
-    // 검증된 stable v1 엔드포인트를 사용하되, 400 오류를 피하기 위해 generation_config는 생략합니다.
-    console.log("Calling Gemini v1 API with Google Search tool enabled...");
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    // [버그 수정] 
+    // 1. 구글 검색 그라운딩(tools) 기능은 v1beta 엔드포인트에서만 공식 지원됩니다. (v1으로 호출 시 400 'tools' unknown 발생)
+    // 2. v1beta에서 gemini-1.5-flash는 서비스 감축(deprecation) 등으로 인해 404를 유발할 수 있어, 
+    //    v1beta에서 완벽하게 검색 그라운딩을 공식 지원하는 최신 주력 모델인 'gemini-2.0-flash'로 모델명을 마이그레이션합니다.
+    console.log("Calling Gemini v1beta API (gemini-2.0-flash) with Google Search tool enabled...");
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
