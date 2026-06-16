@@ -90,11 +90,10 @@ async function run() {
 
   try {
     // [버그 수정] 
-    // 1. 구글 검색 그라운딩(tools) 기능은 v1beta 엔드포인트에서만 공식 지원됩니다. (v1으로 호출 시 400 'tools' unknown 발생)
-    // 2. v1beta에서 gemini-1.5-flash는 서비스 감축(deprecation) 등으로 인해 404를 유발할 수 있어, 
-    //    v1beta에서 완벽하게 검색 그라운딩을 공식 지원하는 최신 주력 모델인 'gemini-2.0-flash'로 모델명을 마이그레이션합니다.
-    console.log("Calling Gemini v1beta API (gemini-2.0-flash) with Google Search tool enabled...");
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+    // 결제 카드 등록이 없는 순수 무료 AI Studio 계정의 경우, gemini-2.0-flash의 무료 쿼터가 0(limit: 0)으로 비활성화되어 429 에러가 납니다.
+    // 무조건적인 무료 쿼터(RPM 2회, RPD 50회)가 정상 제공되며, 구글 검색 도구 품질도 훨씬 고도화된 'gemini-1.5-pro' 모델로 마이그레이션합니다.
+    console.log("Calling Gemini v1beta API (gemini-1.5-pro) with Google Search tool enabled...");
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
