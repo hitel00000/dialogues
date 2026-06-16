@@ -90,10 +90,10 @@ async function run() {
 
   try {
     // [버그 수정] 
-    // 결제 카드 등록이 없는 순수 무료 AI Studio 계정의 경우, gemini-2.0-flash의 무료 쿼터가 0(limit: 0)으로 비활성화되어 429 에러가 납니다.
-    // 무조건적인 무료 쿼터(RPM 2회, RPD 50회)가 정상 제공되며, 구글 검색 도구 품질도 훨씬 고도화된 'gemini-1.5-pro' 모델로 마이그레이션합니다.
-    console.log("Calling Gemini v1beta API (gemini-1.5-pro) with Google Search tool enabled...");
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`, {
+    // 2026년 기준, 구글의 이전 세대 모델인 'gemini-1.5-pro' 및 'gemini-1.5-flash' 라인업이 완전히 은퇴(Retired)되어 404가 났습니다.
+    // 현재 v1beta에서 구글 검색 도구를 지원하며 무료 계정 쿼터가 넉넉히 제공되는 2026년 기준 표준 주력 모델인 'gemini-3.5-flash'로 마이그레이션합니다.
+    console.log("Calling Gemini v1beta API (gemini-3.5-flash) with Google Search tool enabled...");
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
