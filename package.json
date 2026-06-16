@@ -6,8 +6,9 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/curate-posts.js && astro dev",
+    "build": "node scripts/curate-posts.js && astro build",
+    "curate": "node scripts/curate-posts.js",
     "preview": "astro preview",
     "astro": "astro"
   },
