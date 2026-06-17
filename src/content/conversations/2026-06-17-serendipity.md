@@ -1,7 +1,13 @@
 ---
 title: "위험 모델, Serendipity, 그리고 사고의 확장"
-description: ""
 date: 2026-06-17
+tags:
+  - serendipity
+  - ai
+  - learning
+  - risk
+  - cognition
+description: "I'm Feeling Lucky에서 시작된 검색과 추천의 역사, LLM을 통한 사고 공간의 탐색, 그리고 개인의 위험 모델과 안전한 실패 실험에 대하여 이야기합니다."
 ---
 
 이번 대화는 `I'm Feeling Lucky`에 대한 그리움에서 시작했지만, 결국은 **인간이 어떻게 자신의 사고 한계를 넘고, 변화하는 시대에 적응하는가**에 대한 이야기로 이어졌다.

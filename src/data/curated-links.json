@@ -238,5 +238,25 @@
         "reason": "도형의 안과 밖이 뒤집힌 채 마침내 제자리로 회귀하는 위상수학적 성질을 시각화함으로써 논리적 역설의 기하학적 대칭을 경험하게 합니다."
       }
     ]
+  },
+  "2026-06-17-serendipity": {
+    "internal": [
+      {
+        "id": "2026-06-02-aesthetics-of-mastery-from-vim-to-celeste",
+        "reason": "실패를 두려워하지 않고 안전하게 반복 실험할 수 있는 피드백 루프의 중요성을 '셀레스트' 같은 웰메이드 게임의 정교한 레벨 디자인과 숙련 과정에 빗대어 깊이 있게 이해할 수 있습니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Cynefin framework",
+        "url": "https://en.wikipedia.org/wiki/Cynefin_framework",
+        "reason": "예측 불가능하고 복잡한 영역에서 작동하는 '안전한 실패 실험(safe-to-fail experiment)'의 개념적 기원과 실천 프레임워크를 설명합니다."
+      },
+      {
+        "title": "Exploration-exploitation dilemma",
+        "url": "https://en.wikipedia.org/wiki/Exploration%E2%80%93exploitation_dilemma",
+        "reason": "새로운 정보를 탐색하는 행동과 기존의 익숙한 위험 모델을 고수하는 것 사이의 인지적 및 시스템적 최적의 선택 딜레마를 규명합니다."
+      }
+    ]
   }
 }
