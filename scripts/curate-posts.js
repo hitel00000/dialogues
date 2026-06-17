@@ -6,6 +6,35 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.join(__dirname, '..');
 
+async function fetchWithRetry(url, options, maxRetries = 3, initialDelayMs = 2000) {
+  let retries = 0;
+  while (true) {
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) return response;
+      
+      const shouldRetry = response.status === 429 || (response.status >= 500 && response.status < 600);
+      if (shouldRetry && retries < maxRetries) {
+        retries++;
+        const delay = initialDelayMs * Math.pow(2, retries - 1);
+        console.warn(`API returned status ${response.status}. Retrying in ${delay}ms (Attempt ${retries}/${maxRetries})...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue;
+      }
+      return response;
+    } catch (error) {
+      if (retries < maxRetries) {
+        retries++;
+        const delay = initialDelayMs * Math.pow(2, retries - 1);
+        console.warn(`Network error: ${error.message}. Retrying in ${delay}ms (Attempt ${retries}/${maxRetries})...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+
 // 1. 모든 로컬 마크다운 파일 수집 및 요약 컨텍스트 생성
 function getPostSummaries() {
   const categories = ['essays', 'conversations'];
@@ -135,7 +164,7 @@ async function run() {
 
   try {
     console.log("Calling Gemini v1beta API (gemini-3.5-flash) in standard mode for new posts...");
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
