@@ -20,49 +20,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Process Issue with LLM and Create Markdown
+      - name: Process Issue and Create Draft Markdown
         uses: actions/github-script@v7
         id: publish
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           script: |
             const fs = require('fs');
             const path = require('path');
-
-            async function fetchWithRetry(url, options, maxRetries = 5, initialDelayMs = 2000) {
-              let retries = 0;
-              while (true) {
-                try {
-                  const response = await fetch(url, options);
-                  if (response.ok) return response;
-                  
-                  const shouldRetry = response.status === 429 || (response.status >= 500 && response.status < 600);
-                  if (shouldRetry && retries < maxRetries) {
-                    retries++;
-                    let delay = initialDelayMs * Math.pow(2, retries - 1);
-                    if (response.status === 429) {
-                      delay = 45000; // 429 Quota 에러 시 45초 강제 대기
-                    } else if (response.status === 503) {
-                      delay = 20000; // 503 서비스 로드 에러 시 20초 강제 대기
-                    }
-                    console.warn(`API returned status ${response.status}. Retrying in ${delay}ms (Attempt ${retries}/${maxRetries})...`);
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    continue;
-                  }
-                  return response;
-                } catch (error) {
-                  if (retries < maxRetries) {
-                    retries++;
-                    const delay = initialDelayMs * Math.pow(2, retries - 1);
-                    console.warn(`Network error: ${error.message}. Retrying in ${delay}ms (Attempt ${retries}/${maxRetries})...`);
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    continue;
-                  }
-                  throw error;
-                }
-              }
-            }
 
             const issue = context.payload.issue;
             
@@ -110,97 +74,15 @@ jobs:
               dateStr = explicitDateMatch[1];
               console.log(`Explicit date found in body text: ${dateStr}`);
             }
-
-            // 2. Gemini LLM API 호출하여 Frontmatter 데이터 정제
-            const apiKey = process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.trim() : '';
+            
+            // 2. 메타데이터 기본값 설정
             let title = issue.title.replace(/^\[(Essay|Conversation)\]\s*/i, '').trim(); 
             let description = '';
             let tags = [];
-            let slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); 
 
-            if (apiKey) {
-              try {
-                console.log("Calling Gemini v1beta API (gemini-3.5-flash)...");
-                
-                const prompt = `
-                아래 블로그 원문과 사용자가 입력한 임시 제목을 분석하여, Astro 정적 블로그에 들어갈 메타데이터(제목, 요약, 태그, 슬러그, 날짜)를 추출 및 가공해 주세요.
-                
-                - 임시 제목: "${title}"
-                - 본문 내용:
-                """
-                ${bodyText}
-                """
-                
-                [요청 사항]
-                1. title: 원문을 바탕으로 다듬은 매력적이고 자연스러운 블로그 제목 (한글로 1줄 요약)
-                2. description: 글 전체 내용을 요약한 한두 줄의 요약문
-                3. tags: 글 주제에 어울리는 대표 태그 2~3개 (영어 소문자로 구성)
-                4. slug: title 내용을 바탕으로 연상할 수 있는, URL 경로에 어울리는 영문 소문자 하이픈(-) 형태의 슬러그 (예: "attention-is-all-you-need-too"). 특수문자는 제거해 주세요.
-                5. date: 본문 내용이나 제목 등에서 글이 실제 작성된 과거 날짜 정보(예: "2024년 5월 12일 작성", "2023-08-11에 남긴 메모" 등)가 단서로 제공되었다면 YYYY-MM-DD 포맷으로 추출해 주세요. 언급이 전혀 없다면 빈 문자열("")을 반환해 주세요.
-                
-                다음 JSON 형식을 엄격히 지켜서 답변해 주세요. JSON 외에 다른 설명 텍스트나 마크다운 코드 블록(\`\`\`)은 절대로 넣지 마세요:
-                {
-                  "title": "생성된 제목",
-                  "description": "생성된 요약문",
-                  "tags": ["tag1", "tag2"],
-                  "slug": "english-slug-format",
-                  "date": "YYYY-MM-DD 또는 빈문자열"
-                }
-                `;
-
-                // [버그 수정 및 최적화]
-                // 1. 은퇴한 1.5 계열 모델 대신, 2026년 기준 실사용 표준 모델인 'gemini-3.5-flash'를 사용합니다.
-                // 2. 구글 API 게이트웨이 스펙에 따른 400 Bad Request 에러를 원천 피하기 위해 generation_config 설정은 생략하고 
-                //    전달받은 JSON 텍스트에서 정규식(Regex)을 이용해 마크다운 백틱을 지우고 깔끔하게 추출합니다.
-                const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }]
-                  })
-                });
-
-                // [방어 3] API 비정상 응답 체크 (디버깅을 위해 에러 상세 본문 로깅)
-                if (!response.ok) {
-                  const errorResponseBody = await response.text();
-                  throw new Error(`Gemini API returned status ${response.status}: ${errorResponseBody}`);
-                }
-
-                const resData = await response.json();
-                
-                if (resData.candidates && resData.candidates[0] && resData.candidates[0].content) {
-                  let jsonText = resData.candidates[0].content.parts[0].text;
-                  
-                  // [방어 4] 마크다운 코드 블록 제거 및 JSON 정제
-                  jsonText = jsonText.replace(/^\s*```(?:json)?/i, '').replace(/```\s*$/, '').trim();
-                  
-                  const aiResult = JSON.parse(jsonText);
-
-                  title = aiResult.title || title;
-                  description = aiResult.description || '';
-                  tags = aiResult.tags || [];
-                  slug = aiResult.slug ? aiResult.slug.toLowerCase().replace(/[^a-z0-9-]+/g, '') : slug;
-                  
-                  // 본문 정규식으로 직접 지정 날짜를 못 찾았고, AI가 본문에서 과거 날짜를 발견했다면 대입
-                  if (!explicitDateMatch && aiResult.date && /^\d{4}-\d{2}-\d{2}$/.test(aiResult.date)) {
-                    dateStr = aiResult.date;
-                    console.log(`LLM extracted date from text: ${dateStr}`);
-                  }
-                  
-                  console.log("LLM Generation Success:", aiResult);
-                } else {
-                  console.warn("Unexpected Gemini API response structure:", resData);
-                }
-              } catch (err) {
-                console.error("Gemini API Error, falling back to defaults:", err);
-              }
-            } else {
-              console.log("No GEMINI_API_KEY secret found. Proceeding with basic Frontmatter.");
-            }
-
-            // 3. 파일명 최종 정제
-            const filename = `${dateStr}-${slug}.md`;
-            const filepath = path.join('src', 'content', category, filename);
+            // 3. 파일명 정제 (한글 파일명 방지 및 고유성 확보를 위해 issue 번호 사용)
+            const filename = `${dateStr}-issue-${issue.number}.md`;
+            const filepath = path.join('src', 'content', 'drafts', category, filename);
 
             // [방어 5] YAML 문자열 이스케이프 및 안전 포맷 처리
             const cleanTitle = title.replace(/"/g, '\\"').replace(/\n/g, ' ');
@@ -213,7 +95,7 @@ jobs:
               `date: ${dateStr}`
             ];
             
-            // [검증 반영] tags가 빈 배열이거나 유효하지 않을 때, Frontmatter tags: 누락 필터링
+            // tags가 빈 배열이거나 유효하지 않을 때, Frontmatter tags: 누락 필터링
             if (tags && tags.length > 0) {
               frontmatterLines.push('tags:');
               tags.forEach(tag => {
@@ -235,18 +117,12 @@ jobs:
             core.setOutput('title', title);
             core.setOutput('filename', filename);
 
-      - name: Update Semantic Curation Map
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          node scripts/curate-posts.js
-
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "docs: publish post '${{ steps.publish.outputs.title }}' and update semantic curation map" || exit 0
+          git commit -m "docs: create draft post '${{ steps.publish.outputs.title }}'" || exit 0
           git push
 
       - name: Comment and Close Issue
@@ -261,7 +137,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `🎉 **성공적으로 발행되었습니다!**\n- **생성된 파일**: [${filename}](${repoUrl})\n- **작업**: GitHub Pages 배포 완료 시 자동으로 블로그에 노출됩니다.`
+              body: `📝 **성공적으로 초안(draft)이 작성되었습니다!**\n- **생성된 파일**: [${filename}](${repoUrl})\n- **작업**: 초안 폴더(\`src/content/drafts/... \`)에 저장되었으므로, 검토 후 정식 폴더(\`src/content/... \`)로 옮겨 푸시하시면 블로그에 정식 배포됩니다.`
             });
 
             await github.rest.issues.update({
