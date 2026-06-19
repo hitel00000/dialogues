@@ -108,6 +108,11 @@
     ],
     "external": [
       {
+        "title": "From AGI to ASI",
+        "url": "https://deepmind.google/research/publications/239142/",
+        "reason": "인간 수준의 AGI에서 초지능(ASI)으로 이행하는 과정의 4가지 도약 경로(스케일링, 패러다임 시프트, 재귀적 개선, 대규모 멀티에이전트 집단)와 기술적 병목을 고찰합니다."
+      },
+      {
         "title": "Collective intelligence",
         "url": "https://en.wikipedia.org/wiki/Collective_intelligence",
         "reason": "단일 지능의 확장이 왜 결국 유기적인 시스템의 집단적 상호작용으로 이어져야 하는지에 대한 사회적/기술적 동력을 이론화합니다."
