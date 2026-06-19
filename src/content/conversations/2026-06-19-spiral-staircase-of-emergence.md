@@ -1,7 +1,13 @@
 ---
 title: "창발의 나선계단: 결정론과 비결정론의 교차 패러다임"
-description: ""
+description: "우리가 세상을 인식하는 결정론적 세계관과 실제 비결정론적 야생의 괴리를 짚어보고, 컴퓨터와 LLM, 물리학을 거쳐 창발의 나선계단으로 이어지는 순환 패러독스를 논합니다."
 date: 2026-06-19
+tags:
+  - philosophy
+  - systems
+  - paradox
+  - ai
+  - cognition
 ---
 
 ## 1. 서론: 왜 우리는 결정론을 먼저 배우는가

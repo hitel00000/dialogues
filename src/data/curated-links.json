@@ -258,5 +258,25 @@
         "reason": "새로운 정보를 탐색하는 행동과 기존의 익숙한 위험 모델을 고수하는 것 사이의 인지적 및 시스템적 최적의 선택 딜레마를 규명합니다."
       }
     ]
+  },
+  "2026-06-19-spiral-staircase-of-emergence": {
+    "internal": [
+      {
+        "id": "2026-06-15-the-liar-s-m-bius-strip",
+        "reason": "결정론과 비결정론, 혹은 자기 참조적 논리가 꼬여서 만들어내는 기묘한 순환의 패러독스와 뫼비우스의 띠 형태의 시스템 구조를 공유하며 깊이 있는 통찰을 나눕니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Causal Determinism",
+        "url": "https://plato.stanford.edu/entries/determinism-causal/",
+        "reason": "물리학과 철학적 관점에서 우주가 인과적으로 결정되어 있는가에 대한 원론적인 역사와 쟁점들을 깊이 있게 설명합니다."
+      },
+      {
+        "title": "Emergence",
+        "url": "https://en.wikipedia.org/wiki/Emergence",
+        "reason": "미시적 규칙들이 상호작용하여 상위 차원의 거시적 질서와 새로운 특성을 창발하는 현상의 학술적 기틀을 마련해 줍니다."
+      }
+    ]
   }
 }
