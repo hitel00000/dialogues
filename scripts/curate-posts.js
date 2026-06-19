@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.join(__dirname, '..');
 
-async function fetchWithRetry(url, options, maxRetries = 3, initialDelayMs = 2000) {
+async function fetchWithRetry(url, options, maxRetries = 5, initialDelayMs = 2000) {
   let retries = 0;
   while (true) {
     try {
@@ -16,7 +16,12 @@ async function fetchWithRetry(url, options, maxRetries = 3, initialDelayMs = 200
       const shouldRetry = response.status === 429 || (response.status >= 500 && response.status < 600);
       if (shouldRetry && retries < maxRetries) {
         retries++;
-        const delay = initialDelayMs * Math.pow(2, retries - 1);
+        let delay = initialDelayMs * Math.pow(2, retries - 1);
+        if (response.status === 429) {
+          delay = 45000; // 429 Quota 에러 시 45초 강제 대기
+        } else if (response.status === 503) {
+          delay = 20000; // 503 서비스 로드 에러 시 20초 강제 대기
+        }
         console.warn(`API returned status ${response.status}. Retrying in ${delay}ms (Attempt ${retries}/${maxRetries})...`);
         await new Promise(resolve => setTimeout(resolve, delay));
         continue;
