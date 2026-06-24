@@ -30,6 +30,7 @@ const { title = "Dialogues" } = Astro.props;
       <h1><a href={BASE_URL} style="text-decoration: none; color: inherit;">Dialogues</a></h1>
       <p>관심 있는 다양한 주제의 대화와 생각을 기록하는 보관소</p>
       <nav>
+        <a href={`${BASE_URL}about`}>소개</a>
         {COLLECTIONS.map(col => (
           <a href={`${BASE_URL}${col.id}`}>{col.label}</a>
         ))}
