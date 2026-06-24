@@ -27,16 +27,19 @@ const { title = "Dialogues" } = Astro.props;
 
   <body>
     <aside class="sidebar">
-      <h1><a href={BASE_URL} style="text-decoration: none; color: inherit;">Dialogues</a></h1>
-      <p>관심 있는 다양한 주제의 대화와 생각을 기록하는 보관소</p>
-      <nav>
-        <a href={`${BASE_URL}about`}>소개</a>
-        {COLLECTIONS.map(col => (
-          <a href={`${BASE_URL}${col.id}`}>{col.label}</a>
-        ))}
-        <hr />
-        <a href="https://github.com/hitel00000" target="_blank" rel="noopener noreferrer" style="opacity: 0.55;">GitHub ↗</a>
-      </nav>
+      <div class="sidebar-top">
+        <h1><a href={BASE_URL} style="text-decoration: none; color: inherit;">Dialogues</a></h1>
+        <p>관심 있는 다양한 주제의 대화와 생각을 기록하는 보관소</p>
+        <nav>
+          <a href={`${BASE_URL}about`}>소개</a>
+          {COLLECTIONS.map(col => (
+            <a href={`${BASE_URL}${col.id}`}>{col.label}</a>
+          ))}
+        </nav>
+      </div>
+      <footer class="sidebar-footer">
+        © 2026 hitel00000 · <a href="https://github.com/hitel00000/dialogues" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </footer>
     </aside>
     <main>
       <slot />
