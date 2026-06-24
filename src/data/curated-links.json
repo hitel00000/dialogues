@@ -283,5 +283,45 @@
         "reason": "미시적 규칙들이 상호작용하여 상위 차원의 거시적 질서와 새로운 특성을 창발하는 현상의 학술적 기틀을 마련해 줍니다."
       }
     ]
+  },
+  "2026-06-23-daily-anchors-and-exoskeleton": {
+    "internal": [
+      {
+        "id": "2026-06-15-extending-the-mind-of-civilization",
+        "reason": "거시적인 문명의 에너지적 팽창에 대응하여, 미시적으로 개인이 실존적 의미를 잃지 않고 일상을 구축하는 방안을 연결하여 살펴볼 수 있습니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Jevons paradox",
+        "url": "https://en.wikipedia.org/wiki/Jevons_paradox",
+        "reason": "자원의 효율성 증대가 오히려 총소비량을 증가시킨다는 기술적 역설이 어떻게 문명과 일상의 팽창으로 확대되는지 경제학적 원론을 다룹니다."
+      },
+      {
+        "title": "Existentialism",
+        "url": "https://plato.stanford.edu/entries/existentialism/",
+        "reason": "외재적 규범이나 외부 골격이 붕괴했을 때 스스로 행동의 닻을 내리며 실존적 좌표를 정의하는 철학적 기틀을 제시합니다."
+      }
+    ]
+  },
+  "2026-06-24-borrowing-endurance": {
+    "internal": [
+      {
+        "id": "2026-06-11-attention-is-all-you-need-too",
+        "reason": "두 글은 인지 능력의 무제한적인 확장이 아니라, 주의력과 조급함을 견디는 지구력이라는 한정된 자원의 병목을 어떻게 효율적으로 통제할 것인지 고민합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "The Extended Mind",
+        "url": "https://en.wikipedia.org/wiki/Extended_mind_thesis",
+        "reason": "정신과 인지적 활동이 두뇌라는 물리적 한계를 넘어 환경과 도구(AI)로 확장되어 작동한다는 확장 인지 이론의 원문을 살펴봅니다."
+      },
+      {
+        "title": "Cognitive load",
+        "url": "https://en.wikipedia.org/wiki/Cognitive_load",
+        "reason": "동시다발적 사유 분과를 처리할 때 유발되는 인지 과부하의 문제를 외부 도구를 이용해 분산시키는 작용을 정합적으로 설명합니다."
+      }
+    ]
   }
 }
