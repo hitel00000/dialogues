@@ -323,5 +323,25 @@
         "reason": "동시다발적 사유 분과를 처리할 때 유발되는 인지 과부하의 문제를 외부 도구를 이용해 분산시키는 작용을 정합적으로 설명합니다."
       }
     ]
+  },
+  "2026-06-26-where-to-draw-the-line": {
+    "internal": [
+      {
+        "id": "2026-06-02-deterministic-gatekeeper-llm-development",
+        "reason": "두 글은 AI 에이전트의 개발 방식을 맹신하지 않고 시스템의 안정성과 부채 예방을 위해 결정론적 가드레일 및 검증 프로토콜의 경계를 설정하는 가치를 논의합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Technical debt",
+        "url": "https://en.wikipedia.org/wiki/Technical_debt",
+        "reason": "임시방편의 부채를 인지하지 못한 채 누적되는 위험을 방지하고, 감당 가능한 부채의 경계를 설정하고 관리하는 구조적 방법을 제시합니다."
+      },
+      {
+        "title": "No Silver Bullet",
+        "url": "https://en.wikipedia.org/wiki/No_Silver_Bullet",
+        "reason": "본질적 복잡성과 부차적 복잡성을 구분하며, 자동화 도구의 발전 속에서도 프로그래머가 감당해야 하는 개념적 설계와 의사결정의 본질을 상기시킵니다."
+      }
+    ]
   }
 }
