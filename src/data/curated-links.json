@@ -343,5 +343,25 @@
         "reason": "본질적 복잡성과 부차적 복잡성을 구분하며, 자동화 도구의 발전 속에서도 프로그래머가 감당해야 하는 개념적 설계와 의사결정의 본질을 상기시킵니다."
       }
     ]
+  },
+  "2026-06-26-octopus-and-deterministic-machine": {
+    "internal": [
+      {
+        "id": "2026-06-02-deterministic-gatekeeper-llm-development",
+        "reason": "두 글은 확률적인 지능의 추론 비용과 오류 제어를 위해 검증된 행동 패턴을 결정론적인 구조 아래로 격리하는 아키텍처적 공통점을 공유합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Distributed cognition",
+        "url": "https://en.wikipedia.org/wiki/Distributed_cognition",
+        "reason": "인지와 정보 처리가 단일 중앙에 고착되지 않고 시스템 전체로 분산되어 조율되는 메커니즘을 보여줍니다."
+      },
+      {
+        "title": "Four stages of competence",
+        "url": "https://en.wikipedia.org/wiki/Four_stages_of_competence",
+        "reason": "무의식적 무능에서 무의식적 유능으로 이행하며 비결정적 사유를 결정적 행동으로 굳혀가는 인지 발달 단계를 체계적으로 기술합니다."
+      }
+    ]
   }
 }
