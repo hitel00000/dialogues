@@ -44,6 +44,10 @@
       {
         "id": "2026-06-14-the-architecture-behind-the-language",
         "reason": "두 글은 자연어와 프로그래밍 언어를 막론하고 언어의 문법 뒤에 존재하는 문화적 맥락이나 설계 철학이 인지 시스템에 깊은 영향을 미침을 주장합니다."
+      },
+      {
+        "id": "2026-06-30-the-translation-bypass",
+        "reason": "언어가 단순 정보 전달을 넘어 맥락 재생기로 작동한다는 정의와, 번역 매개를 생략해 의미망을 직접 결합하는 훈련의 연속성을 확인합니다."
       }
     ],
     "external": [
@@ -309,6 +313,10 @@
       {
         "id": "2026-06-11-attention-is-all-you-need-too",
         "reason": "두 글은 인지 능력의 무제한적인 확장이 아니라, 주의력과 조급함을 견디는 지구력이라는 한정된 자원의 병목을 어떻게 효율적으로 통제할 것인지 고민합니다."
+      },
+      {
+        "id": "2026-06-30-the-translation-bypass",
+        "reason": "두 글은 유한한 인지력을 지닌 인간이 어떻게 번역 우회로를 소거하거나 AI라는 외부 도구의 지구력을 빌려 인지적 과부하를 헤쳐나가는지 탐색합니다."
       }
     ],
     "external": [
@@ -361,6 +369,26 @@
         "title": "Four stages of competence",
         "url": "https://en.wikipedia.org/wiki/Four_stages_of_competence",
         "reason": "무의식적 무능에서 무의식적 유능으로 이행하며 비결정적 사유를 결정적 행동으로 굳혀가는 인지 발달 단계를 체계적으로 기술합니다."
+      }
+    ]
+  },
+  "2026-06-30-the-translation-bypass": {
+    "internal": [
+      {
+        "id": "2026-05-21-language-as-a-context-replay-system",
+        "reason": "두 글은 모국어의 우회로를 제거하는 직접 매핑과 맥락을 재생하는 언어의 작용을 결합하여, 언어가 사유에 미치는 물리적 영향을 탐구합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Linguistic relativity",
+        "url": "https://en.wikipedia.org/wiki/Linguistic_relativity",
+        "reason": "언어 구조가 사고 방식을 결정한다는 가설의 근본 논리를 제공하여, 번역 매개의 소거가 사고방식 재구조화로 이어지는 현상을 심도 있게 조명합니다."
+      },
+      {
+        "title": "The Extended Mind",
+        "url": "https://en.wikipedia.org/wiki/Extended_mind_thesis",
+        "reason": "사고의 경로가 뇌 외부의 신체 및 도구적 패턴과 직접 결합하여 인지 작용을 완결한다는 신체화된 인지 이론의 틀을 제공합니다."
       }
     ]
   }
