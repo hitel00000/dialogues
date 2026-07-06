@@ -391,5 +391,25 @@
         "reason": "사고의 경로가 뇌 외부의 신체 및 도구적 패턴과 직접 결합하여 인지 작용을 완결한다는 신체화된 인지 이론의 틀을 제공합니다."
       }
     ]
+  },
+  "2026-07-06-the-liars-revenge": {
+    "internal": [
+      {
+        "id": "2026-06-15-the-liar-s-m-bius-strip",
+        "reason": "거짓말쟁이 역설을 위상적 결함으로 직관한 선행 대화의 비유적 씨앗이, 이 에세이에서 타르스키의 계층과 크립키의 고정점, 강화된 복수 문제라는 정밀한 논리학적 계보로 전개됩니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Tarski's Truth Definitions",
+        "url": "https://plato.stanford.edu/entries/tarski-truth/",
+        "reason": "에세이가 출발점으로 삼는 타르스키의 대상 언어-메타 언어 분리 전략과 그 계층이 품은 구조적 한계를 원론적 깊이에서 다룹니다."
+      },
+      {
+        "title": "Self-Reference",
+        "url": "https://plato.stanford.edu/entries/self-reference/",
+        "reason": "크립키의 고정점 의미론부터 강화된 거짓말쟁이의 복수 문제까지, 자기참조가 논리 체계 안에서 봉쇄와 침입을 반복하는 메커니즘의 학술적 지형도를 제공합니다."
+      }
+    ]
   }
 }
