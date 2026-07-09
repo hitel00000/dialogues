@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import { COLLECTIONS, BASE_URL } from '../../config';
+import tocData from '../../data/structure-notes-toc.json';
 
 export async function getStaticPaths() {
   return COLLECTIONS.map((col) => ({
@@ -15,16 +16,172 @@ const { col } = Astro.props;
 const posts = (await getCollection(col.id)).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
+
+const postMap = new Map();
+if (col.id === 'structure-notes') {
+  posts.forEach((post) => {
+    postMap.set(post.id, post);
+  });
+}
 ---
 
 <BaseLayout title={`${col.label} - Dialogues`}>
   <section>
     <h2>{col.label}</h2>
 
-    <div class="posts-list">
-      {posts.map((post) => (
-        <PostCard post={post} collectionId={col.id} />
-      ))}
-    </div>
+    {col.id === 'structure-notes' ? (
+      <div class="structure-notes-toc-page">
+        <p class="toc-description">
+          일상의 지극히 평범한 일화에서 출발하여, 프로그래밍의 논리와 범주론을 넘어 AI와 인간 지능의 본질까지 깊숙이 파고드는 25개의 연결된 생각들.
+        </p>
+
+        <div class="toc-grid">
+          {tocData.map((part) => (
+            <div class="toc-part-card">
+              <h3>{part.partTitle}</h3>
+              <ul>
+                {part.chapters.map((ch) => {
+                  const published = postMap.get(ch.slug);
+                  return (
+                    <li class={published ? 'published' : 'draft'}>
+                      <span class="ch-num">{ch.chapter}.</span>
+                      {published ? (
+                        <div class="ch-content">
+                          <a href={`${BASE_URL}structure-notes/${ch.slug}`} class="ch-link">
+                            {ch.title}
+                          </a>
+                          {published.data.description && (
+                            <span class="ch-desc">{published.data.description}</span>
+                          )}
+                        </div>
+                      ) : (
+                        <div class="ch-content">
+                          <span class="ch-title">{ch.title}</span>
+                          <span class="ch-badge">준비중</span>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="posts-list">
+        {posts.map((post) => (
+          <PostCard post={post} collectionId={col.id} />
+        ))}
+      </div>
+    )}
   </section>
 </BaseLayout>
+
+<style>
+  .toc-description {
+    opacity: 0.8;
+    font-size: 1.05rem;
+    margin-bottom: 48px;
+    line-height: 1.65;
+    max-width: 680px;
+    font-style: italic;
+  }
+  .toc-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin-top: 24px;
+    max-width: 680px;
+  }
+  .toc-part-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .toc-part-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    opacity: 0.95;
+    border-bottom: 1.5px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .toc-part-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .toc-part-card li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .ch-num {
+    font-family: monospace;
+    font-size: 0.88rem;
+    opacity: 0.4;
+    min-width: 24px;
+    text-align: right;
+  }
+  .ch-content {
+    flex: 1;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ch-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease, opacity 0.15s ease;
+    word-break: keep-all;
+    display: inline-block;
+    align-self: flex-start;
+  }
+  .ch-link:hover {
+    border-bottom-color: currentColor;
+  }
+  .ch-desc {
+    font-size: 0.85rem;
+    opacity: 0.55;
+    line-height: 1.45;
+  }
+  .toc-part-card li.draft {
+    opacity: 0.45;
+  }
+  .ch-title {
+    word-break: keep-all;
+  }
+  .ch-badge {
+    font-size: 0.65rem;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(127, 127, 127, 0.12);
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 6px;
+    align-self: center;
+    display: inline-block;
+  }
+  
+  .toc-part-card li.draft .ch-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+  }
+
+  @media (max-width: 600px) {
+    .toc-grid {
+      gap: 36px;
+    }
+  }
+</style>

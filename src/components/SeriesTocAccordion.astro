@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import { BASE_URL } from '../config';
+import tocData from '../data/structure-notes-toc.json';
+
+interface Props {
+  currentChapter?: number;
+}
+
+const { currentChapter } = Astro.props;
+
+// 모든 구조 노트 글들 가져오기
+const posts = await getCollection('structure-notes');
+const postMap = new Map(posts.map(p => [p.id, p]));
+---
+
+<details class="toc-accordion" style="margin-bottom: 32px; border: 1px solid var(--border); border-radius: 8px; background: rgba(127,127,127,0.035); overflow: hidden; transition: background 0.2s ease;">
+  <summary style="padding: 14px 18px; font-weight: 600; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; outline: none;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 1rem; opacity: 0.9;">📖 구조 노트 목차</span>
+      {typeof currentChapter === 'number' && (
+        <span style="font-size: 0.82rem; font-weight: 500; padding: 2px 8px; border-radius: 4px; background: rgba(127,127,127,0.12); opacity: 0.75;">
+          {currentChapter === 0 ? '시작' : `Chapter ${currentChapter}`} 읽는 중
+        </span>
+      )}
+    </div>
+    <span class="chevron" style="font-size: 0.8rem; opacity: 0.6; transition: transform 0.2s ease; display: inline-block;">▼</span>
+  </summary>
+  
+  <div class="toc-content" style="padding: 18px 20px 24px; border-top: 1px solid var(--border); max-height: 450px; overflow-y: auto;">
+    {tocData.map((part) => (
+      <div class="toc-part-block" style="margin-bottom: 24px;">
+        <h4 style="margin: 0 0 10px 0; font-size: 0.95rem; font-weight: 700; opacity: 0.85; border-bottom: 1px dashed var(--border); padding-bottom: 4px;">
+          {part.partTitle}
+        </h4>
+        <ul style="list-style: none; padding-left: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px 20px;">
+          {part.chapters.map((ch) => {
+            const isCurrent = ch.chapter === currentChapter;
+            const published = postMap.get(ch.slug);
+            
+            return (
+              <li style={`display: flex; align-items: baseline; gap: 8px; font-size: 0.88rem; ${isCurrent ? 'font-weight: 700;' : ''}`}>
+                <span style={`font-family: monospace; font-size: 0.8rem; opacity: 0.4; min-width: 18px; text-align: right;`}>
+                  {ch.chapter}.
+                </span>
+                {published ? (
+                  <a 
+                    href={`${BASE_URL}structure-notes/${ch.slug}`} 
+                    style={`text-decoration: none; color: inherit; transition: opacity 0.15s ease; ${isCurrent ? 'border-bottom: 2px solid currentColor;' : 'opacity: 0.85;'}`}
+                  >
+                    {ch.title}
+                  </a>
+                ) : (
+                  <span style="opacity: 0.35; cursor: not-allowed; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;" title="준비 중인 챕터입니다">
+                    <span style="word-break: keep-all; white-space: normal;">{ch.title}</span>
+                    <small style="font-size: 0.65rem; padding: 1px 4px; border-radius: 3px; background: rgba(127,127,127,0.12); font-weight: 500; white-space: nowrap; display: inline-block;">
+                      준비중
+                    </small>
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+  </div>
+</details>
+
+<style>
+  details[open] .chevron {
+    transform: rotate(180deg);
+  }
+  
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details summary {
+    list-style: none;
+  }
+  
+  details.toc-accordion:hover {
+    background: rgba(127,127,127,0.055) !important;
+  }
+  
+  .toc-content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .toc-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .toc-content::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+</style>

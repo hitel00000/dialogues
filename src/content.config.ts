@@ -19,7 +19,17 @@ const essays = defineCollection({
   schema: postSchema,
 });
 
+const seriesSchema = postSchema.extend({
+  chapter: z.number(),
+});
+
+const structureNotes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/structure-notes' }),
+  schema: seriesSchema,
+});
+
 export const collections = {
   conversations,
   essays,
+  'structure-notes': structureNotes,
 };

@@ -1,8 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeriesTocAccordion from '../../components/SeriesTocAccordion.astro';
 import { COLLECTIONS, BASE_URL } from '../../config';
 import { formatDate } from '../../utils/date';
+import tocData from '../../data/structure-notes-toc.json';
 
 export async function getStaticPaths() {
   const allPaths = await Promise.all(
@@ -61,24 +63,98 @@ const internalRecommendations = (currentCuration.internal || [])
 
 // 5. 외부 추천 포스트 매핑
 const externalRecommendations = currentCuration.external || [];
+
+// 6. 연작 시리즈의 이전/다음 챕터 네비게이션 계산
+const flatChapters = tocData.flatMap(part => part.chapters);
+const currentChapterNum = post.data.chapter;
+let prevChapter = null;
+let nextChapter = null;
+let prevPost = null;
+let nextPost = null;
+
+if (post.collection === 'structure-notes' && typeof currentChapterNum === 'number') {
+  prevChapter = flatChapters.find(ch => ch.chapter === currentChapterNum - 1);
+  nextChapter = flatChapters.find(ch => ch.chapter === currentChapterNum + 1);
+  
+  const seriesPosts = allPosts.filter(p => p.collectionId === 'structure-notes');
+  if (prevChapter) {
+    prevPost = seriesPosts.find(p => p.id === prevChapter.slug);
+  }
+  if (nextChapter) {
+    nextPost = seriesPosts.find(p => p.id === nextChapter.slug);
+  }
+}
 ---
 
 <BaseLayout title={`${post.data.title} - Dialogues`}>
-  <nav class="back-nav">
-    <a href={BASE_URL}>← 목록으로 돌아가기</a>
-  </nav>
+{post.collection !== 'structure-notes' && (
+    <nav class="back-nav">
+      <a href={`${BASE_URL}${post.collection}`}>
+        ← {COLLECTIONS.find(c => c.id === post.collection)?.label || '목록'} 목록으로 돌아가기
+      </a>
+    </nav>
+  )}
 
   <article>
+    {post.collection === 'structure-notes' && (
+      <SeriesTocAccordion currentChapter={currentChapterNum} />
+    )}
+    
     <h1>{post.data.title}</h1>
-    <div style="display: flex; align-items: center; gap: 8px; opacity: 0.6; font-size: 0.95rem; margin-bottom: 32px;">
-      <span style="font-weight: 500; padding: 2px 8px; border-radius: 4px; background: rgba(127,127,127,0.15); font-size: 0.8rem; letter-spacing: 0.02em;">
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; opacity: 0.6; font-size: 0.95rem; margin-bottom: 32px;">
+      <span style="font-weight: 500; padding: 2px 8px; border-radius: 4px; background: rgba(127,127,127,0.15); font-size: 0.8rem; letter-spacing: 0.02em; white-space: nowrap;">
         {COLLECTIONS.find(c => c.id === post.collection)?.label || post.collection}
       </span>
-      <span>•</span>
-      <span>{formatDate(post.data.date)}</span>
+      {typeof currentChapterNum === 'number' && (
+        <>
+          <span class="meta-dot">•</span>
+          <span style="white-space: nowrap;">Chapter {currentChapterNum}</span>
+        </>
+      )}
+      <span class="meta-dot">•</span>
+      <span style="white-space: nowrap;">{formatDate(post.data.date)}</span>
     </div>
 
     <Content />
+
+    {/* 연작 시리즈 네비게이션 */}
+    {post.collection === 'structure-notes' && (prevChapter || nextChapter) && (
+      <div class="series-nav" style="margin-top: 56px; border-radius: 8px; background: rgba(127,127,127,0.05); border: 1px solid var(--border);">
+        {prevChapter && (
+          <div class="series-nav-item prev">
+            <span class="nav-label">이전 챕터</span>
+            {prevPost ? (
+              <a href={`${BASE_URL}structure-notes/${prevChapter.slug}`} class="nav-link">
+                ← {prevChapter.title}
+              </a>
+            ) : (
+              <span class="nav-disabled">
+                <span class="nav-title">← {prevChapter.title}</span>
+                <small class="nav-badge">준비중</small>
+              </span>
+            )}
+          </div>
+        )}
+        
+        {prevChapter && nextChapter && <div class="series-nav-divider" />}
+        
+        {nextChapter && (
+          <div class="series-nav-item next">
+            <span class="nav-label">다음 챕터</span>
+            {nextPost ? (
+              <a href={`${BASE_URL}structure-notes/${nextChapter.slug}`} class="nav-link">
+                {nextChapter.title} →
+              </a>
+            ) : (
+              <span class="nav-disabled">
+                <span class="nav-title">{nextChapter.title} →</span>
+                <small class="nav-badge">준비중</small>
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+    )}
 
     {/* LLM 시맨틱 큐레이션 추천 섹션 */}
     {(internalRecommendations.length > 0 || externalRecommendations.length > 0) && (
@@ -155,3 +231,96 @@ const externalRecommendations = currentCuration.external || [];
     )}
   </article>
 </BaseLayout>
+
+<style>
+  .series-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+  }
+  .series-nav-item {
+    flex: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .series-nav-item.prev {
+    text-align: left;
+  }
+  .series-nav-item.next {
+    text-align: right;
+  }
+  .series-nav-divider {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+  }
+  .nav-label {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .nav-link {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: inherit;
+    line-height: 1.4;
+  }
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+  .nav-disabled {
+    font-size: 0.95rem;
+    opacity: 0.35;
+    cursor: not-allowed;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.4;
+  }
+  .series-nav-item.next .nav-disabled {
+    flex-direction: row-reverse;
+  }
+  .nav-title {
+    word-break: keep-all;
+  }
+  .nav-badge {
+    font-size: 0.72rem;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(127, 127, 127, 0.15);
+    font-weight: 500;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  @media (max-width: 600px) {
+    .series-nav {
+      flex-direction: column;
+    }
+    .series-nav-item {
+      padding: 18px 20px;
+    }
+    .series-nav-item.next {
+      text-align: left;
+    }
+    .series-nav-item.next .nav-disabled {
+      flex-direction: row;
+    }
+    .series-nav-divider {
+      width: 100%;
+      height: 1px;
+      align-self: auto;
+    }
+    .meta-dot {
+      display: none;
+    }
+  }
+</style>
