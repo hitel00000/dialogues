@@ -153,6 +153,10 @@
       {
         "id": "2026-06-14-the-architecture-behind-the-language",
         "reason": "두 글은 매혹적인 제어 장치와 시스템을 몸으로 직접 체득하고 마스터해 가는 과정에서 얻는 궁극의 미적 유희에 주목합니다."
+      },
+      {
+        "id": "2026-06-17-serendipity",
+        "reason": "도구 조작의 정밀한 숙련이 주는 몰입감이, 실패를 거듭하며 새로운 탐색적 방향을 발견하는 세렌디피티의 실험실로 연결되는 양상을 보여줍니다."
       }
     ],
     "external": [
@@ -173,6 +177,10 @@
       {
         "id": "2026-05-23-orchestration-over-intelligence-agent-bottleneck",
         "reason": "두 글은 LLM의 확률론적인 불확실성과 모호함을 통제하기 위해 실행 환경 내에 명시적인 제약 장치와 합의 구조를 강제하는 전술을 강조합니다."
+      },
+      {
+        "id": "2021-09-03-development-pipeline-and-rollback-cost",
+        "reason": "확률적인 LLM을 가두는 가드레일 설계의 필요성을, 고전적 소프트웨어 배포 파이프라인에서 발생하는 롤백 비용과 복구 인프라의 관점으로 확장해 봅니다."
       }
     ],
     "external": [
@@ -193,6 +201,10 @@
       {
         "id": "2020-04-11-organizational-language-and-onboarding",
         "reason": "두 글은 전체 상황의 과도한 공유보다 각 역할에 필요한 정보를 명확히 격리하고 언어로 압축 소통하는 것이 조직 지속 가능성의 열쇠임을 입증합니다."
+      },
+      {
+        "id": "2026-07-10-society-as-computational-structure",
+        "reason": "정보의 압축과 격리가 단순히 인간 조직을 넘어 인공지능 에이전트 간의 사회적 계산 및 협업 구조로 작동하는 원리를 공유합니다."
       }
     ],
     "external": [
@@ -233,6 +245,10 @@
       {
         "id": "2026-05-21-language-as-a-context-replay-system",
         "reason": "두 글은 논리 기호나 특정 어휘의 자기 참조가 유발하는 흥미로운 순환 고리와 시스템의 꼬임 구조를 통찰합니다."
+      },
+      {
+        "id": "2026-07-06-the-liars-revenge",
+        "reason": "자기 참조가 유발하는 역설의 꼬임 구조가 어떻게 논리학 역사 속에서 계층적 회피와 크립키의 고정점 등의 체계적 보완책으로 전개되는지 후속 에세이를 통해 깊이 있게 탐구할 수 있습니다."
       }
     ],
     "external": [
@@ -429,6 +445,26 @@
         "title": "Mixture of Experts",
         "url": "https://en.wikipedia.org/wiki/Mixture_of_experts",
         "reason": "본문에서 사회와 절반만 닮았다고 분석하는 전문가 혼합 모델의 세부 원리와 그 계산상의 목적을 학습할 수 있습니다."
+      }
+    ]
+  },
+  "2026-07-07-eastward": {
+    "internal": [
+      {
+        "id": "2026-06-17-serendipity",
+        "reason": "두 글은 명확한 목적지 없이 걷는 모호한 과정 속에서, 가던 길을 멈추고 새로운 방향을 마주하는 탐색적 여정의 가치를 공유합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Midnight sun",
+        "url": "https://en.wikipedia.org/wiki/Midnight_sun",
+        "reason": "글 속에서 비유적으로 상상한 '영원히 해가 지지 않는 여행'의 자연 현상적 메커니즘을 상세히 설명해 줍니다."
+      },
+      {
+        "title": "Solitude",
+        "url": "https://en.wikipedia.org/wiki/Solitude",
+        "reason": "정처 없이 걷는 고독한 사색의 시간 속에서, 삶의 주체적인 방향성을 탐색해 나가는 철학적 및 심리적 가치를 조명합니다."
       }
     ]
   }
