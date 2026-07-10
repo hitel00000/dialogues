@@ -411,5 +411,25 @@
         "reason": "크립키의 고정점 의미론부터 강화된 거짓말쟁이의 복수 문제까지, 자기참조가 논리 체계 안에서 봉쇄와 침입을 반복하는 메커니즘의 학술적 지형도를 제공합니다."
       }
     ]
+  },
+  "2026-07-10-society-as-computational-structure": {
+    "internal": [
+      {
+        "id": "2026-06-11-from-agent-memory-to-organizational-intelligence",
+        "reason": "두 글은 단일 지능의 단순한 스케일업보다 개별 구성원의 정보를 격리하고 소통을 조율하는 조직 구조가 전체 지능을 향상시키는 핵심 열쇠임을 공유합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Society of Mind",
+        "url": "https://en.wikipedia.org/wiki/Society_of_Mind",
+        "reason": "마빈 민스키가 제안한 지능의 사회적 창발 이론을 다루며 단일 신경망을 넘어선 분산적 에이전트 간의 상호작용이 어떻게 고차원적 지능으로 발전하는지 기초 기틀을 제시합니다."
+      },
+      {
+        "title": "Mixture of Experts",
+        "url": "https://en.wikipedia.org/wiki/Mixture_of_experts",
+        "reason": "본문에서 사회와 절반만 닮았다고 분석하는 전문가 혼합 모델의 세부 원리와 그 계산상의 목적을 학습할 수 있습니다."
+      }
+    ]
   }
 }
