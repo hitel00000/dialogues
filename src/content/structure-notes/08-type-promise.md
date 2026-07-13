@@ -1,7 +1,7 @@
 ---
 title: "8. 타입은 약속이다"
 description: "콘센트 규격이라는 물리적 표준을 통해 타입이 보장하는 것과 보장하지 않는 것의 경계를 살펴본다"
-date: 2026-07-14
+date: 2026-07-13
 tags: ["structure", "type", "programming"]
 chapter: 8
 ---
