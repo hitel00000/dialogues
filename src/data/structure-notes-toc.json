@@ -104,12 +104,12 @@
       },
       {
         "chapter": 15,
-        "title": "Functor는 무엇을 보존하는가",
+        "title": "모양을 옮겨도 남는 것",
         "slug": "15-functor-preservation"
       },
       {
         "chapter": 16,
-        "title": "자연변환은 왜 자연스러운가",
+        "title": "다른 길로 옮겨도 어긋나지 않는다",
         "slug": "16-natural-transformation"
       }
     ]
