@@ -1,7 +1,7 @@
 ---
 title: "13. 객체보다 관계"
 description: "화이트보드 위 동그라미와 화살표를 통해, 대상의 내용을 지워도 구조가 그대로 남는다는 사실을 확인한다"
-date: 2026-07-16
+date: 2026-07-15
 tags: ["structure", "category", "programming"]
 chapter: 13
 ---
