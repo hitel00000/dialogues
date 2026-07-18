@@ -165,5 +165,16 @@
         "slug": "24-how-programmers-see-world"
       }
     ]
+  },
+  {
+    "part": 7,
+    "partTitle": "Part 7. Epilogue",
+    "chapters": [
+      {
+        "chapter": 25,
+        "title": "나가며 — 다시, 처음의 질문으로",
+        "slug": "25-epilogue"
+      }
+    ]
   }
 ]
