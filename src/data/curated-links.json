@@ -467,5 +467,29 @@
         "reason": "정처 없이 걷는 고독한 사색의 시간 속에서, 삶의 주체적인 방향성을 탐색해 나가는 철학적 및 심리적 가치를 조명합니다."
       }
     ]
+  },
+  "2026-08-03-quiet-tools-quiet-intelligence": {
+    "internal": [
+      {
+        "id": "2026-06-11-from-agent-memory-to-organizational-intelligence",
+        "reason": "두 글은 모든 맥락을 단일 모델에 밀어 넣는 방식 대신 각 역할과 도구에 필요한 정보를 선택적으로 격리하고 설계하는 조직론적 통찰을 공유합니다."
+      },
+      {
+        "id": "2026-06-26-octopus-and-deterministic-machine",
+        "reason": "두 글은 자율성을 지닌 지능의 통제권을 어떻게 확보하고 결정론적 도구 및 규칙과 안전하게 결합시킬 것인가에 대한 아키텍처적 고민을 나눕니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "The Extended Mind",
+        "url": "https://en.wikipedia.org/wiki/Extended_mind_thesis",
+        "reason": "정신과 인지적 활동이 두뇌의 경계를 넘어 외부 도구 및 환경으로 확장되어 작동한다는 앤디 클락의 확장 인지 이론을 다룹니다."
+      },
+      {
+        "title": "Personal computing",
+        "url": "https://en.wikipedia.org/wiki/Personal_computing",
+        "reason": "초기 개인용 컴퓨터가 가졌던 도구적 성격과 소유권의 역사적 기틀, 그리고 현대 중앙화 플랫폼 환경과의 대비를 제시합니다."
+      }
+    ]
   }
 }
