@@ -112,3 +112,14 @@ chapter: N
 
 [교정된 본문 텍스트 - 구체 사례로 시작해 일반화로 상승하고 다음 화 예고로 끝나는 구조]
 ```
+
+---
+
+## [큐레이션 관리 규칙] 큐레이션 링크(curated-links.json) 생성 및 관리 규칙
+
+- 새로운 글(`conversations`, `essays` 등)이 생성되거나 최종 발행될 때, 에이전트는 `src/data/curated-links.json` 파일에 해당 글의 큐레이션 데이터(키: 파일명 slug)를 직접 작성하여 반영한다.
+- **구성 요소**:
+  1. `internal`: 기존 글 중 사유나 아키텍처 관점에서 가장 유기적으로 연결되는 포스트 1~2개 선별 (`id`, `reason`). 가능하다면 연관 글의 `internal` 항목에도 양방향으로 추가한다.
+  2. `external`: 글의 주제, 기술/철학적 개념, 역사적 기원 등을 더 깊이 탐구할 수 있는 공신력 있는 외부 웹 아티클이나 위키백과(Wikipedia), Stanford Encyclopedia of Philosophy 등의 정확한 실제 URL 1~2개 매핑 (`title`, `url`, `reason`).
+  3. `reason`: 두 글 또는 개념 간의 맥락적 연결고리를 설명하는 단단한 한국어 1문장 큐레이션 한 줄 평.
+
