@@ -477,6 +477,10 @@
       {
         "id": "2026-06-26-octopus-and-deterministic-machine",
         "reason": "두 글은 자율성을 지닌 지능의 통제권을 어떻게 확보하고 결정론적 도구 및 규칙과 안전하게 결합시킬 것인가에 대한 아키텍처적 고민을 나눕니다."
+      },
+      {
+        "id": "2026-08-05-unverifiable-trust-and-privacy-as-a-brand",
+        "reason": "두 글은 자신을 드러내지 않는 도구의 성격과 데이터 소유권 문제가 빅테크의 브랜드 마케팅 및 검증 불가능한 신뢰 패러독스로 이어지는 흐름을 공유합니다."
       }
     ],
     "external": [
@@ -489,6 +493,30 @@
         "title": "Personal computing",
         "url": "https://en.wikipedia.org/wiki/Personal_computing",
         "reason": "초기 개인용 컴퓨터가 가졌던 도구적 성격과 소유권의 역사적 기틀, 그리고 현대 중앙화 플랫폼 환경과의 대비를 제시합니다."
+      }
+    ]
+  },
+  "2026-08-05-unverifiable-trust-and-privacy-as-a-brand": {
+    "internal": [
+      {
+        "id": "2026-08-03-quiet-tools-quiet-intelligence",
+        "reason": "전작에서 다룬 도구의 소유권과 조용한 지능의 미덕을 거대 플랫폼 마케팅 속의 검증 불가능성과 은폐된 신뢰 문제로 확장하여 다룹니다."
+      },
+      {
+        "id": "2026-06-26-where-to-draw-the-line",
+        "reason": "두 글은 편리함이라는 명목 아래 개인의 주권과 경계선을 어디까지 양보하고 어떤 기준으로 통제할 것인가라는 근본적인 질문을 나눕니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Kerckhoffs's principle",
+        "url": "https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle",
+        "reason": "시스템의 안전성은 구조의 비밀성이 아닌 오직 투명한 검증 가능성에 의존해야 한다는 현대 보안학의 철칙을 다룹니다."
+      },
+      {
+        "title": "Security through obscurity",
+        "url": "https://en.wikipedia.org/wiki/Security_through_obscurity",
+        "reason": "소스코드나 내부 구조를 감춤으로써 안전을 도모하는 태도가 가진 구조적 한계와 비대칭성을 설명합니다."
       }
     ]
   }
