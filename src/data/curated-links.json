@@ -496,6 +496,34 @@
       }
     ]
   },
+  "2026-08-02-quiet-tools-and-bound-authority": {
+    "internal": [
+      {
+        "id": "2026-06-02-deterministic-gatekeeper-llm-development",
+        "reason": "두 글은 비결정적 지능에 대한 맹목적 과신을 배제하고 결정론적 검증 및 가드레일을 통해 시스템의 주도권과 안정성을 확보하려는 아키텍처적 지향점을 공유합니다."
+      },
+      {
+        "id": "2026-06-11-from-agent-memory-to-organizational-intelligence",
+        "reason": "두 글은 단일 모델의 비대한 맥락 동기화 대신 역할별 맥락 격리와 위계적 정보 배분을 통한 조직 지능 설계를 기술적 해결책으로 제시합니다."
+      },
+      {
+        "id": "2026-08-03-quiet-tools-quiet-intelligence",
+        "reason": "이 대화에서 도출된 조용한 도구와 주도권 침해 방지의 사유가 단단한 산문 형태의 에세이 포스트로 정련된 연속성을 확인할 수 있습니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Human-in-the-loop",
+        "url": "https://en.wikipedia.org/wiki/Human-in-the-loop",
+        "reason": "자율형 인공지능 에이전트의 불확실한 행동을 통제하고 최종 의사결정의 주도권을 인간에게 부여하는 시스템 설계 모델을 설명합니다."
+      },
+      {
+        "title": "Bounded Rationality",
+        "url": "https://plato.stanford.edu/entries/bounded-rationality/",
+        "reason": "모든 맥락을 독점하는 단일 주체의 불가능성과, 한정된 정보 및 역할 분담을 통해 최적화되는 인간과 조직의 인지적 한계를 학술적으로 다룹니다."
+      }
+    ]
+  },
   "2026-08-05-unverifiable-trust-and-privacy-as-a-brand": {
     "internal": [
       {
