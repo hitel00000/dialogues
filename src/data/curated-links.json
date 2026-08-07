@@ -481,6 +481,10 @@
       {
         "id": "2026-08-05-unverifiable-trust-and-privacy-as-a-brand",
         "reason": "두 글은 자신을 드러내지 않는 도구의 성격과 데이터 소유권 문제가 빅테크의 브랜드 마케팅 및 검증 불가능한 신뢰 패러독스로 이어지는 흐름을 공유합니다."
+      },
+      {
+        "id": "2026-08-07-friction-sensitivity",
+        "reason": "조용한 도구의 철학이 작업 시스템 내부의 마찰 감지 및 제거라는 개인적 정체성과 조화를 이루는 연관성을 보여줍니다."
       }
     ],
     "external": [
@@ -545,6 +549,30 @@
         "title": "Security through obscurity",
         "url": "https://en.wikipedia.org/wiki/Security_through_obscurity",
         "reason": "소스코드나 내부 구조를 감춤으로써 안전을 도모하는 태도가 가진 구조적 한계와 비대칭성을 설명합니다."
+      }
+    ]
+  },
+  "2026-08-07-friction-sensitivity": {
+    "internal": [
+      {
+        "id": "2026-06-24-borrowing-endurance",
+        "reason": "두 글은 인지적·물리적 마찰을 줄이고 도구의 힘을 빌려 사고와 작업의 지평을 상위 차원으로 확장하는 과정을 함께 다룹니다."
+      },
+      {
+        "id": "2026-08-03-quiet-tools-quiet-intelligence",
+        "reason": "두 글은 도구가 조용히 사람의 작업 흐름을 지탱하고, 작업자-지능 협력 환경에서 마찰을 지워나가는 시스템 설계의 지향점을 공유합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Cognitive friction",
+        "url": "https://en.wikipedia.org/wiki/Cognitive_friction",
+        "reason": "상호작용 과정에서 유발되는 인지적 마찰과 저항의 원인을 파악하고 이를 제거하는 인터페이스 및 시스템 디자인의 핵심 이론을 제공합니다."
+      },
+      {
+        "title": "Developer experience",
+        "url": "https://en.wikipedia.org/wiki/Developer_experience",
+        "reason": "개발자와 창작자가 도구 및 시스템을 다룰 때 겪는 워크플로우 상의 마찰과 작업 효율성을 다루는 공학적·경험적 기틀을 제시합니다."
       }
     ]
   }
