@@ -485,6 +485,10 @@
       {
         "id": "2026-08-07-friction-sensitivity",
         "reason": "조용한 도구의 철학이 작업 시스템 내부의 마찰 감지 및 제거라는 개인적 정체성과 조화를 이루는 연관성을 보여줍니다."
+      },
+      {
+        "id": "2026-08-15-rational-dogmatism",
+        "reason": "AI 도구의 자율적 동작 및 협력 과정에서 발생하는 전제의 독단과 의도치 않은 우회로 형성 양상을 이어 다룹니다."
       }
     ],
     "external": [
@@ -573,6 +577,30 @@
         "title": "Developer experience",
         "url": "https://en.wikipedia.org/wiki/Developer_experience",
         "reason": "개발자와 창작자가 도구 및 시스템을 다룰 때 겪는 워크플로우 상의 마찰과 작업 효율성을 다루는 공학적·경험적 기틀을 제시합니다."
+      }
+    ]
+  },
+  "2026-08-15-rational-dogmatism": {
+    "internal": [
+      {
+        "id": "2026-06-02-deterministic-gatekeeper-llm-development",
+        "reason": "두 글은 AI가 사전에 굳힌 전제나 비결정론적 추론으로 인해 비효율을 낳는 현상을 관찰하고 이를 제어하기 위한 경계와 가드레일의 필요성을 조명합니다."
+      },
+      {
+        "id": "2026-08-03-quiet-tools-quiet-intelligence",
+        "reason": "두 글은 인간과 AI 도구가 협력하는 과정에서 판단의 주도권과 의도치 않은 우회로가 발생하는 양상을 깊이 있게 탐구합니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Bounded rationality",
+        "url": "https://plato.stanford.edu/entries/bounded-rationality/",
+        "reason": "제한된 정보와 선택적 전제 아래에서 일관성을 유지하려는 합리성이 때로는 독단이나 편향으로 나타나는 인지철학적 한계를 다룹니다."
+      },
+      {
+        "title": "Confirmation bias",
+        "url": "https://en.wikipedia.org/wiki/Confirmation_bias",
+        "reason": "자신이 선택한 전제나 가설만을 정당화하며 밀어붙이는 합리적 독단의 심리학적 맹점을 설명합니다."
       }
     ]
   }
