@@ -4,9 +4,17 @@ import { COLLECTIONS, BASE_URL } from '../config';
 
 interface Props {
   title?: string;
+  description?: string;
+  type?: 'website' | 'article';
 }
 
-const { title = "Dialogues" } = Astro.props;
+const {
+  title = "Dialogues",
+  description = "관심 있는 다양한 주제의 대화와 생각을 기록하는 보관소",
+  type = "website",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="ko">
@@ -14,6 +22,22 @@ const { title = "Dialogues" } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Dialogues" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JB8QWCEQP"></script>
     <script is:inline>

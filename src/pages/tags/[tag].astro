@@ -26,7 +26,10 @@ export async function getStaticPaths() {
 const { posts, tag } = Astro.props;
 ---
 
-<BaseLayout title={`태그: #${tag} - Dialogues`}>
+<BaseLayout
+  title={`태그: #${tag} - Dialogues`}
+  description={`'#${tag}' 태그가 포함된 포스트 목록`}
+>
   <section>
     <h2>태그: #{tag}</h2>
 

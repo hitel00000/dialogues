@@ -86,7 +86,11 @@ if (post.collection === 'structure-notes' && typeof currentChapterNum === 'numbe
 }
 ---
 
-<BaseLayout title={`${post.data.title} - Dialogues`}>
+<BaseLayout
+  title={`${post.data.title} - Dialogues`}
+  description={post.data.description}
+  type="article"
+>
 {post.collection !== 'structure-notes' && (
     <nav class="back-nav">
       <a href={`${BASE_URL}${post.collection}`}>
