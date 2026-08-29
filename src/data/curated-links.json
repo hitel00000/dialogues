@@ -573,6 +573,10 @@
       {
         "id": "2026-08-03-quiet-tools-quiet-intelligence",
         "reason": "두 글은 도구가 조용히 사람의 작업 흐름을 지탱하고, 작업자-지능 협력 환경에서 마찰을 지워나가는 시스템 설계의 지향점을 공유합니다."
+      },
+      {
+        "id": "2026-08-29-reflection-again",
+        "reason": "작업 환경과 워크플로우의 마찰을 제거하는 서포터형 정체성이, 글쓰기 과정에서 생각 사이의 마찰을 바라보고 재귀적으로 성찰하는 태도로 확장됩니다."
       }
     ],
     "external": [
@@ -661,6 +665,30 @@
         "title": "Red team",
         "url": "https://en.wikipedia.org/wiki/Red_team",
         "reason": "조직과 시스템의 전제된 맹점을 폭로하고 의사결정의 획일화를 깨기 위해 의도적으로 적대적 비판자 역할을 수행하는 체계적 방법론을 다룹니다."
+      }
+    ]
+  },
+  "2026-08-29-reflection-again": {
+    "internal": [
+      {
+        "id": "2026-08-07-friction-sensitivity",
+        "reason": "작업 워크플로우 속 마찰을 감지하고 해소하던 시선이, 글을 쓰고 생각을 다듬는 과정에서 발생하는 생각 사이의 마찰과 취향을 관찰하는 메타적 성찰로 이어집니다."
+      },
+      {
+        "id": "2026-06-24-borrowing-endurance",
+        "reason": "AI의 지구력을 빌려 가설과 문장을 덜어내는 협업 속에서, 덜어내기와 취향의 선택을 통해 자신의 사유와 자아를 확인해 나가는 과정을 나눕니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Negative capability",
+        "url": "https://en.wikipedia.org/wiki/Negative_capability",
+        "reason": "성급하게 매끈한 결론이나 설명에 안착하지 않고 불확실성과 생각의 마찰을 기꺼이 견뎌내는 '소극적 수용 능력'의 문학·철학적 개념을 조명합니다."
+      },
+      {
+        "title": "Metacognition",
+        "url": "https://en.wikipedia.org/wiki/Metacognition",
+        "reason": "생각을 만들고 바라보며, 그 생각을 바라보는 자신을 한 발 떨어져 다시 관찰하는 고차원적 인지 및 재귀적 자기 인식의 메커니즘을 뒷받침합니다."
       }
     ]
   }
