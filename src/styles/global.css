@@ -22,6 +22,20 @@ body {
   padding: 0 20px;
 }
 
+hr {
+  border: 0;
+  height: 1px;
+  margin: 2.5rem 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border) 18%,
+    var(--border) 82%,
+    transparent 100%
+  );
+  opacity: 0.9;
+}
+
 .sidebar {
   width: 240px;
   padding: 48px 24px 48px 8px;
