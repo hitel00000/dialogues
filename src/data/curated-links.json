@@ -691,5 +691,29 @@
         "reason": "생각을 만들고 바라보며, 그 생각을 바라보는 자신을 한 발 떨어져 다시 관찰하는 고차원적 인지 및 재귀적 자기 인식의 메커니즘을 뒷받침합니다."
       }
     ]
+  },
+  "2026-09-23-place-time-cannot-compress": {
+    "internal": [
+      {
+        "id": "2026-06-02-deterministic-gatekeeper-llm-development",
+        "reason": "이 글은 확률적 모델의 한계를 인정하면서도, 실행의 실재와 검증 구조를 어떻게 시스템 속에 설계할 것인지에 대해 앞선 에세이와 같은 문제의식을 공유합니다."
+      },
+      {
+        "id": "2026-08-29-reflection-again",
+        "reason": "생각의 마찰과 메타적 성찰을 통해 지식이 만들어지는 과정, 그리고 그 과정이 결국 몸과 시간의 맥락을 전제해야 함을 함께 드러냅니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Sim-to-real transfer",
+        "url": "https://en.wikipedia.org/wiki/Sim-to-real_transfer",
+        "reason": "시뮬레이션에서 축약된 시간과 조건으로 학습한 지식이 실제 세계에서 왜 끝내 드러나는 불일치를 만들게 되는지 설명하는 대표적인 개념입니다."
+      },
+      {
+        "title": "Embodied cognition",
+        "url": "https://en.wikipedia.org/wiki/Embodied_cognition",
+        "reason": "지식이 텍스트로만 만들어지는 것이 아니라 감각, 움직임, 인과적 피드백의 몸 경험 속에서 형성된다는 주장과 직접 연결됩니다."
+      }
+    ]
   }
 }
