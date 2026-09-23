@@ -19,6 +19,11 @@ const essays = defineCollection({
   schema: postSchema,
 });
 
+const fiction = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/fiction' }),
+  schema: postSchema,
+});
+
 const seriesSchema = postSchema.extend({
   chapter: z.number(),
 });
@@ -31,5 +36,6 @@ const structureNotes = defineCollection({
 export const collections = {
   conversations,
   essays,
+  fiction,
   'structure-notes': structureNotes,
 };
