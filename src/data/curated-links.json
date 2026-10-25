@@ -692,6 +692,39 @@
       }
     ]
   },
+  "2026-10-26-everyday-april-fools-day": {
+    "internal": [
+      {
+        "id": "2026-08-03-quiet-tools-quiet-intelligence",
+        "reason": "에세이의 핵심 논리인 '기회는 가능성 그 자체가 아니라, 그 가능성으로 누군가의 문제를 해결하는 곳에 있다'는 점이, Quiet Tools의 조용히 사람의 작업을 지지하는 도구의 정체성과 직접 연결됩니다."
+      },
+      {
+        "id": "2026-06-24-borrowing-endurance",
+        "reason": "두 글은 AI가 개인이 시도할 수 있는 일의 범위 자체를 넓히는 흐름을 공유합니다. 에세이의 'AI는 단순히 일을 빠르게 처리하는 도구를 넘어, 개인이 시도할 수 있는 일의 범위 자체를 넓힌다'는 관찰은, Borrowing Endurance가 외부 도구의 지구력을 빌려 인지적 한계를 헤쳐나가는 관점과 일치합니다."
+      },
+      {
+        "id": "2026-09-23-place-time-cannot-compress",
+        "reason": "두 글은 기술의 가속으로 시간이 압축되는 느낌을 공유합니다. 에세이의 '필요한 시간마저 믿기 어려울 만큼 짧아졌다'는 문장은, Place Time Cannot Compress의 '시간을 압축할 수 없는 자리'라는 주제와 대비되며, 기술과 시간의 관계를 다룹니다."
+      }
+    ],
+    "external": [
+      {
+        "title": "Technological singularity",
+        "url": "https://en.wikipedia.org/wiki/Technological_singularity",
+        "reason": "에세이가 묘사하는 '불과 5년 전만 해도 상상하기 어려웠던 일들이 가능해지고 필요한 시간마저 짧아졌다'는 기술적 가속의 현상은, 기술적 특이점 개념이 제안하는 지수적 기술 발전의 논리와 일치합니다."
+      },
+      {
+        "title": "Appropriate technology",
+        "url": "https://en.wikipedia.org/wiki/Appropriate_technology",
+        "reason": "에세이의 핵심 주장인 '기술이 무엇을 할 수 있는지 아는 것과, 사람들�이 무엇을 필요로 하는지 아는 것은 별개의 문제다'는 점은, 적절한 기술 운동이 강조하는 기술의 인간 중심적 적용 원리와 직접 연결됩니다."
+      },
+      {
+        "title": "April Fools' Day",
+        "url": "https://en.wikipedia.org/wiki/April_Fools%27_Day",
+        "reason": "에세이의 제목과 중심 메타포인 '매일이 만우절 같다'는 표현의 문화적 배경을 이해할 수 있는 원천입니다."
+      }
+    ]
+  },
   "2026-09-23-place-time-cannot-compress": {
     "internal": [
       {
